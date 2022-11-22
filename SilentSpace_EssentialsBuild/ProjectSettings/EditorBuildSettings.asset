@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Map.unity
+    guid: b3b25db9d1e320d41b48defcd5fa1a9d
+  - enabled: 1
+    path: Assets/Lunar Landscape 3D/Scenes/LunarLandscape3D.unity
+    guid: f4021bc829b444148a3959ec85eeeceb
   m_configObjects: {}
