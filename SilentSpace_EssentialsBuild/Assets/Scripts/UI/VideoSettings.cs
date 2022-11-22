@@ -11,8 +11,7 @@ namespace SilentSpace.UI
     {
         private AudioController _audioController;
         private int _selectedResolution;
-        private bool _onStart = true;
-        
+
         public Toggle fsToggle, vsyncToggle;
         public List<ResItem> resolutions = new List<ResItem>();
         public TMP_Text resolutionLabel;
@@ -49,27 +48,10 @@ namespace SilentSpace.UI
 
                 UpdateResLabel();
             }
-
-            _onStart = false;
+            
             this.gameObject.SetActive(false);
         }
         
-        public void PlayClick()
-        {
-            if (!_onStart)
-            {
-                _audioController.PlayAudio(AudioType.SFX_UI_Button11_Button);
-            }
-        }
-
-        public void PlayApplySound()
-        {
-            if (!_onStart)
-            {
-                _audioController.PlayAudio(AudioType.SFX_UI_Button29_Button);
-            }
-        }
-    
         public void ResLeft() 
         {
             _selectedResolution--;
