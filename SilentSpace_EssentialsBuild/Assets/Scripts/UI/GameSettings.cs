@@ -24,7 +24,7 @@ namespace SilentSpace.UI
         private int _amountOfDifficultyInteractions;
 
         public TMP_Text difficultyLabel;
-        public TMP_Text sensitivityLevel;
+        public TextMeshProUGUI sensitivityLevel;
         public Slider sensitivitySlider;
 
         public event Action OnPassedDiffInteractions;
@@ -45,7 +45,11 @@ namespace SilentSpace.UI
                     sensitivitySlider.value = PlayerPrefs.GetFloat("Sensitivity");
                 }
             }
-            
+            else
+            {
+                SetSensitiviy(.3f);
+            }
+
             this.gameObject.SetActive(false);
         }
 
@@ -92,11 +96,16 @@ namespace SilentSpace.UI
 
         public void SetSensitiviy(float value)
         {
+            UpdateSensitivityLabel(value);
             if(_playerManager == null) return;
             _playerManager.xSensitivity = value;
             _playerManager.ySensitivity = value;
-            sensitivityLevel.text = value.ToString("0.00");
             PlayerPrefs.SetFloat("Sensitivity", value);
+        }
+
+        private void UpdateSensitivityLabel(float value)
+        {
+            sensitivityLevel.text = value.ToString("0.00");
         }
 
         public void Save()

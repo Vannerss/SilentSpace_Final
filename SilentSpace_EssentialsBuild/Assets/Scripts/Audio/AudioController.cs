@@ -11,6 +11,7 @@ namespace SilentSpace.Audio
         SFX_Sonar_01,
         SFX_Enemy_Creature_Speak_01,
         SFX_Enemy_Creature_Roar,
+        SFX_Enemy_Creature_Step,
         SFX_Player_Walk,
         SFX_Player_Run,
         SFX_Player_CrouchWalk,
