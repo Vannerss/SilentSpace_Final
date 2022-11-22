@@ -23,7 +23,7 @@ namespace SilentSpace.Core
         
         [Range(0.0f, 1.0f)] public float ySensitivity;
         [Range(0.0f, 1.0f)] public float xSensitivity;
-        [CanBeNull] public GameObject player;
+        public GameObject player;
         public Transform spawnPoint;
         
         public event Action OnPlayerDeath; //TODO: Add death logic at some point.

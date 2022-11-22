@@ -3,11 +3,10 @@ namespace SilentSpace.DataPersistence.Data
     [System.Serializable]
     public class GameData
     {
-        
         public PlayerData player;
         public AlienData alien;
         public JournalData journal;
-        
+
         //Starting Values
         public GameData()
         {
@@ -24,7 +23,7 @@ namespace SilentSpace.DataPersistence.Data
                 yRot = -90,
                 zRot = 0,
             };
-            
+
             //TODO: Fill in correct default values for alien data.
             alien = new AlienData()
             {
@@ -60,18 +59,18 @@ namespace SilentSpace.DataPersistence.Data
             public float yRot;
             public float zRot;
         }
-        
+
         [System.Serializable]
         public class AlienData
         {
-           public float xPos;
-           public float yPos;
-           public float zPos;
-           public float xRot;
-           public float yRot;
-           public float zRot;
+            public float xPos;
+            public float yPos;
+            public float zPos;
+            public float xRot;
+            public float yRot;
+            public float zRot;
         }
-        
+
         [System.Serializable]
         public class JournalData
         {
