@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using JetBrains.Annotations;
 using SilentSpace.DataPersistence;
 using SilentSpace.DataPersistence.Data;
@@ -10,8 +11,8 @@ namespace SilentSpace.Core
     {
         public static PlayerManager Instance;
         
-        [SerializeField] private int health = 100;
-        [SerializeField] private int oxygenLevel = 100;
+        public float health = 100;
+        public float oxygenLevel = 100;
         
         private string _currentState;
         private string _currentSubState;
@@ -29,10 +30,9 @@ namespace SilentSpace.Core
         public event Action OnPlayerDeath; //TODO: Add death logic at some point.
             
         public int PickedUpItems { get; set; }
-        public int Hp { get => health; set => health = value; }
+        public float Hp { get => health; set => health = value; }
         public Vector3 Position => player != null ? player.transform.position : Vector3.zero;
-
-        public int Oxygen { get => oxygenLevel; set => oxygenLevel = value; }
+        public float Oxygen { get => oxygenLevel; set => oxygenLevel = value; }
         public string CurrentSubState { get => _currentState; set => _currentState = value; }
 
         private void Awake()
@@ -56,12 +56,21 @@ namespace SilentSpace.Core
             }
         }
 
-        public int GetHp()
+        private void Update()
+        {
+            Debug.Log(oxygenLevel);
+            if (oxygenLevel <= 0f)
+            {
+                SetHp(health - 0.10f);
+            }
+        }
+
+        public float GetHp()
         {
             return health;
         }
 
-        public void SetHp(int value)
+        public void SetHp(float value)
         {
             health = value;
             if(health <= 0)
@@ -74,7 +83,7 @@ namespace SilentSpace.Core
                 health = 100;
             }
         }
-        
+
         #region Load & Save
         private void SetPlayerPosition(Vector3 position)
         {

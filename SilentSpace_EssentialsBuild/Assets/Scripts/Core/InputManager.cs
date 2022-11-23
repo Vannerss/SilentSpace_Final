@@ -222,6 +222,11 @@ namespace SilentSpace.Core
 
         #endregion
 
+        public bool IsRunEnabled()
+        {
+            return _run.enabled;
+        }
+
         #region Enable/Disable Inputs
 
         /*
@@ -234,6 +239,10 @@ namespace SilentSpace.Core
         //Enable/Disable Ability to move.
         public void EnableMovementInputs() => _movement.Enable();
         public void DisableMovementInputs() => _movement.Disable();
+        
+        //Enable/Disable Ability to Run.
+        public void EnableRunInputs() => _run.Enable();
+        public void DisableRunInputs() => _run.Disable();
 
         //Enable/Disable Ability to interact.
         public void EnableInteractionInputs() => _interact.Enable();

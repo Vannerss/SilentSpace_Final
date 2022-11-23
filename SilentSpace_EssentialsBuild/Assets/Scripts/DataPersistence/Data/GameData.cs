@@ -12,8 +12,8 @@ namespace SilentSpace.DataPersistence.Data
         {
             player = new PlayerData
             {
-                hp = 100,
-                oxygen = 100,
+                hp = 100f,
+                oxygen = 100f,
                 totalKeyItems = 0,
                 totalNoteItems = 0,
                 xPos = 65,
@@ -48,8 +48,8 @@ namespace SilentSpace.DataPersistence.Data
         [System.Serializable]
         public class PlayerData
         {
-            public int hp;
-            public int oxygen;
+            public float hp;
+            public float oxygen;
             public int totalKeyItems;
             public int totalNoteItems;
             public float xPos;

@@ -1,6 +1,7 @@
 using SilentSpace.Helpers;
 using UnityEngine;
 using UnityEngine.AI;
+using AudioType = SilentSpace.Audio;
 
 namespace SilentSpace.Alien.StateMachine.SubStates
 {
@@ -13,6 +14,7 @@ namespace SilentSpace.Alien.StateMachine.SubStates
 
         public override void EnterState()
         {
+            Ctx.audioController.PlayAudio(AudioType.AudioType.SFX_Enemy_Creature_Speak_01,true);
             Ctx.Log("Entered Nearby Roam Substate");
             Ctx.Timer = new Timer(10f);
             Ctx.Timer.OnTimerEnd += CheckSwitchStates;
@@ -32,6 +34,7 @@ namespace SilentSpace.Alien.StateMachine.SubStates
 
         public override void ExitState()
         {
+            Ctx.audioController.StopAudio(AudioType.AudioType.SFX_Enemy_Creature_Speak_01, true);
             Ctx.Timer.OnTimerEnd -= CheckSwitchStates;
             Ctx.agent.SetDestination(Ctx.Position);
         }

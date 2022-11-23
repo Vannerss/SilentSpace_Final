@@ -1,5 +1,6 @@
 using SilentSpace.Helpers;
 using UnityEngine;
+using AudioType = SilentSpace.Audio.AudioType;
 
 namespace SilentSpace.Alien.StateMachine.States
 {
@@ -22,6 +23,7 @@ namespace SilentSpace.Alien.StateMachine.States
             Ctx.transform.LookAt(Ctx.playerManager.Position);
             Debug.Log("IntimidateState");
             Ctx.animator.SetTrigger(Intimidate);
+            Ctx.audioController.PlayAudio(AudioType.SFX_Enemy_Creature_Roar);
         }
         public override void FixedUpdateState() { }
         public override void UpdateState()
@@ -31,6 +33,7 @@ namespace SilentSpace.Alien.StateMachine.States
 
         public override void ExitState()
         {
+            Ctx.audioController.StopAudio(AudioType.SFX_Enemy_Creature_Roar);
             Ctx.Timer.OnTimerEnd -= CheckSwitchStates;
         }
         public override void InitializeSubState()

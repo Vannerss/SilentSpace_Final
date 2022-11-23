@@ -2,6 +2,7 @@ using SilentSpace.Core;
 using SilentSpace.Helpers;
 using UnityEngine;
 using UnityEngine.AI;
+using SilentSpace.Audio;
 
 namespace SilentSpace.Alien.StateMachine
 {
@@ -17,6 +18,7 @@ namespace SilentSpace.Alien.StateMachine
 
         public AreaTransforms[] areas;
         public PlayerManager playerManager;
+        public AudioController audioController;
         public NavMeshAgent agent;
         public Animator animator;
         public bool debug;
@@ -51,8 +53,6 @@ namespace SilentSpace.Alien.StateMachine
         private void Awake()
         {
             _states = new AlienStateFactory(this);
-            _currentState = _states.Roam();
-            _currentState.EnterState();
         }
 
         private void Start()
@@ -60,7 +60,10 @@ namespace SilentSpace.Alien.StateMachine
             _transform = this.transform;
             agent = this.gameObject.GetComponent<NavMeshAgent>();
             playerManager = PlayerManager.Instance;
+            audioController = AudioController.Instance;
             animator = this.gameObject.GetComponent<Animator>();
+            _currentState = _states.Roam();
+            _currentState.EnterState();
         }
 
         private void FixedUpdate()

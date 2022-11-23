@@ -1,5 +1,6 @@
 using SilentSpace.Audio;
 using SilentSpace.Core;
+using SilentSpace.Helpers;
 using UnityEngine;
 
 namespace SilentSpace.Player.StateMachine
@@ -7,16 +8,19 @@ namespace SilentSpace.Player.StateMachine
     public class PlayerStateMachine : MonoBehaviour
     {
         [SerializeField] private Vector2 moveInput;
-        [SerializeField] private bool isRunning;
-        [SerializeField] private bool isCrouching;
-    
-        private PlayerManager _playerManager;
-        private InputManager _inputManager;
+        public bool isRunning;
+        public bool isCrouching;
+        
         private AudioController _audioController;
         private Rigidbody _rb;
         private Vector3 _moveDirection;
         private float _speed;
         private float _startYScale;
+        private bool _onCooldown;
+
+        public Timer timer;
+        public PlayerManager playerManager;
+        public InputManager inputManager;
     
         //[FormerlySerializedAs("_walkSpeed")]
         [Header("Movement")]
@@ -31,10 +35,8 @@ namespace SilentSpace.Player.StateMachine
     
         [Header("Crouch Height")]
         public float crouchYScale = 0.7f;
-    
         [Header("Facing Orientation")]
         public Transform orientation;
-    
         [Header("Debug Logging")]
         public bool debug;
 
@@ -65,7 +67,8 @@ namespace SilentSpace.Player.StateMachine
         public float PlayerHeight { get => _playerHeight; set => _playerHeight = value; }
         public float StartYScale => _startYScale;
         public AudioController Audio => _audioController;
-        public PlayerStateFactory States => _states;
+        public float OxygenLevel { get => playerManager.Oxygen; set => playerManager.Oxygen = value; }
+
         #endregion
 
         private void Awake()
@@ -77,13 +80,13 @@ namespace SilentSpace.Player.StateMachine
 
         void Start()
         {
-            _playerManager = PlayerManager.Instance;
+            playerManager = PlayerManager.Instance;
 
-            _inputManager = InputManager.Instance;
-            _inputManager.OnCrouchHold += Crouch;
-            _inputManager.OnCrouchCanceled += Uncrouch;
-            _inputManager.OnRunHold += Run;
-            _inputManager.OnRunCanceled += StopRun;
+            inputManager = InputManager.Instance;
+            inputManager.OnCrouchHold += Crouch;
+            inputManager.OnCrouchCanceled += Uncrouch;
+            inputManager.OnRunHold += Run;
+            inputManager.OnRunCanceled += StopRun;
 
             _audioController = AudioController.Instance;
 
@@ -99,10 +102,12 @@ namespace SilentSpace.Player.StateMachine
         }
         private void Update()
         {
-            moveInput.x = _inputManager.GetMovement().x;
-            moveInput.y = _inputManager.GetMovement().y;
+            if(_onCooldown) timer.Tick();
+            
+            moveInput.x = inputManager.GetMovement().x;
+            moveInput.y = inputManager.GetMovement().y;
 
-            _playerManager.CurrentSubState = currentSubStateName;
+            playerManager.CurrentSubState = currentSubStateName;
 
             _currentState.UpdateStates();
         }
@@ -131,6 +136,20 @@ namespace SilentSpace.Player.StateMachine
         {
             if (!debug) return; //guard clause'
             print("[PlayerStateMachine]:" + msg);
+        }
+
+        public void RunOnCooldown()
+        {
+            timer = new Timer(3f);
+            timer.OnTimerEnd += OnCooldownEnd;
+            inputManager.DisableRunInputs();
+            _onCooldown = true;
+            isRunning = false;
+        }
+
+        private void OnCooldownEnd()
+        {
+            inputManager.EnableRunInputs();
         }
     }
 }

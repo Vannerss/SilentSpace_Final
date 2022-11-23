@@ -1,4 +1,5 @@
 using UnityEngine;
+using AudioType = SilentSpace.Audio;
 
 namespace SilentSpace.Alien.StateMachine.SubStates
 {
@@ -18,6 +19,7 @@ namespace SilentSpace.Alien.StateMachine.SubStates
             Ctx.Log("Entered Area Roam Substate");
             _currentAreaIndex = Ctx.areas.Length - 1;
             if(!(Ctx.areas.Length == 0)) FindNextArea();
+            Ctx.audioController.PlayAudio(AudioType.AudioType.SFX_Enemy_Creature_Speak_01,true);
         }
         public override void FixedUpdateState() { }
 
@@ -42,6 +44,7 @@ namespace SilentSpace.Alien.StateMachine.SubStates
         public override void ExitState()
         {
             Ctx.Log("Entered Area Roam Substate");
+            Ctx.audioController.StopAudio(AudioType.AudioType.SFX_Enemy_Creature_Speak_01, true);
         }
         public override void InitializeSubState() { }
         public override void CheckSwitchStates() { }

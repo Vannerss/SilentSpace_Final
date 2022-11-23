@@ -1,4 +1,5 @@
 using UnityEngine;
+using AudioType = SilentSpace.Audio.AudioType;
 
 namespace SilentSpace.Alien.StateMachine.States
 {
@@ -19,6 +20,7 @@ namespace SilentSpace.Alien.StateMachine.States
             _finishedNRoam = false;
             Ctx.animator.SetTrigger(Roaming);
             Ctx.CurrentStateName = StateName;
+            Ctx.audioController.PlayAudio(AudioType.SFX_Enemy_Creature_Speak_01, true);
         }
         
         public override void FixedUpdateState() { }
@@ -32,6 +34,7 @@ namespace SilentSpace.Alien.StateMachine.States
         {
             Ctx.agent.SetDestination(Ctx.Position);
             Ctx.PreviousStateName = StateName;
+            Ctx.audioController.StopAudio(AudioType.SFX_Enemy_Creature_Speak_01, true);
         }
         
         public override void InitializeSubState()
