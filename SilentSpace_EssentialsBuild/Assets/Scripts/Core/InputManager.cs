@@ -18,6 +18,7 @@ namespace SilentSpace.Core
         private InputAction _interact;
         private InputAction _openPause;
         private InputAction _openJournal;
+        private InputAction _openMap;
 
         #region C# Events
 
@@ -32,6 +33,7 @@ namespace SilentSpace.Core
         public event Action OnInteractCanceled;
         public event Action OnOpenPause;
         public event Action OnOpenJournal;
+        public event Action OnOpenMap;
 
         #endregion
 
@@ -93,12 +95,16 @@ namespace SilentSpace.Core
             _openJournal = _playerInputActions.PlayerControls.OpenJournal;
             _openJournal.performed += OnJournal;
             _openJournal.Enable();
+
+            _openMap = _playerInputActions.PlayerControls.OpenMap;
+            _openMap.started += OnMap;
+            _openMap.Enable();
         }
 
         private void OnDisable()
         {
             /*
-         * On Disable we disable all the control scheme in the case the inputmanager
+         * On Disable we disable all the control scheme in the case the input manager
          * were to be disabled or destroy. This helps with the loading through scenes
          * and make sure double instances do not occur.
          * 
@@ -109,6 +115,7 @@ namespace SilentSpace.Core
             _interact.Disable();
             _openPause.Disable();
             _openJournal.Disable();
+            _openMap.Disable();
         }
 
         #endregion
@@ -220,6 +227,11 @@ namespace SilentSpace.Core
             OnOpenJournal?.Invoke();
         }
 
+        private void OnMap(InputAction.CallbackContext context)
+        {
+            Debug.Log(context);
+            OnOpenMap?.Invoke();
+        }
         #endregion
 
         public bool IsRunEnabled()

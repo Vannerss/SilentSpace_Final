@@ -16,7 +16,7 @@ namespace SilentSpace.Alien.StateMachine.SubStates
         {
             Ctx.audioController.PlayAudio(AudioType.AudioType.SFX_Enemy_Creature_Speak_01,true);
             Ctx.Log("Entered Nearby Roam Substate");
-            Ctx.Timer = new Timer(10f);
+            Ctx.Timer = new Timer(15f);
             Ctx.Timer.OnTimerEnd += CheckSwitchStates;
         }
         public override void FixedUpdateState() { }

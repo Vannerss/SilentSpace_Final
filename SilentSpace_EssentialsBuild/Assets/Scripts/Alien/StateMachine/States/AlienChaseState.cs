@@ -52,7 +52,7 @@ namespace SilentSpace.Alien.StateMachine.States
                 SwitchState(Factory.Attack());
             }
 
-            if(Vector3.Distance(Ctx.Position, Ctx.playerManager.Position) >= 15f)
+            if(Vector3.Distance(Ctx.Position, Ctx.playerManager.Position) >= 25f)
             {
                 if (!Ctx.timerIsRunning)
                 {

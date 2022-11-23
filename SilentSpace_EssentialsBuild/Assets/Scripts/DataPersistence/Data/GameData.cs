@@ -6,7 +6,8 @@ namespace SilentSpace.DataPersistence.Data
         public PlayerData player;
         public AlienData alien;
         public JournalData journal;
-
+        public SceneData scene;
+        
         //Starting Values
         public GameData()
         {
@@ -16,20 +17,19 @@ namespace SilentSpace.DataPersistence.Data
                 oxygen = 100f,
                 totalKeyItems = 0,
                 totalNoteItems = 0,
-                xPos = 65,
+                xPos = -31.19f,
                 yPos = 0,
-                zPos = -56,
+                zPos = 8.11f,
                 xRot = 0,
-                yRot = -90,
+                yRot = 0,
                 zRot = 0,
             };
-
-            //TODO: Fill in correct default values for alien data.
+            
             alien = new AlienData()
             {
-                xPos = 0,
+                xPos = -31.48f,
                 yPos = 0,
-                zPos = 0,
+                zPos = 49.2f,
                 xRot = 0,
                 yRot = 0,
                 zRot = 0,
@@ -42,6 +42,27 @@ namespace SilentSpace.DataPersistence.Data
                 keyItemThree = true,
                 keyItemFour = true,
                 keyItemFive = true,
+                
+                noteItemOne = false,
+                noteItemTwo = false,
+                noteItemThree = false,
+                noteItemFour = false,
+                noteItemFive = false,
+            };
+
+            scene = new SceneData()
+            {
+                keyItemOne = true,
+                keyItemTwo = true,
+                keyItemThree = true,
+                keyItemFour = true,
+                keyItemFive = true,
+
+                noteItemOne = false,
+                noteItemTwo = false,
+                noteItemThree = false,
+                noteItemFour = false,
+                noteItemFive = false,
             };
         }
 
@@ -79,6 +100,28 @@ namespace SilentSpace.DataPersistence.Data
             public bool keyItemThree;
             public bool keyItemFour;
             public bool keyItemFive;
+            
+            public bool noteItemOne;
+            public bool noteItemTwo;
+            public bool noteItemThree;
+            public bool noteItemFour;
+            public bool noteItemFive;
+        }
+        
+        [System.Serializable]
+        public class SceneData
+        {
+            public bool keyItemOne;
+            public bool keyItemTwo;
+            public bool keyItemThree;
+            public bool keyItemFour;
+            public bool keyItemFive;
+            
+            public bool noteItemOne;
+            public bool noteItemTwo;
+            public bool noteItemThree;
+            public bool noteItemFour;
+            public bool noteItemFive;
         }
     }
 }

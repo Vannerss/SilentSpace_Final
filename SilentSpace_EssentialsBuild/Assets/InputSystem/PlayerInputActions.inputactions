@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "OpenMap",
+                    "type": "Button",
+                    "id": "106e563b-68f7-49d8-8c5d-773cbc64bd89",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Run",
                     "type": "Button",
                     "id": "fee229ed-fb0a-4518-866e-12c74598930f",
@@ -199,6 +208,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "OpenJournal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "687858c9-c682-427d-9543-344d138f4979",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenMap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

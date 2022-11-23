@@ -82,6 +82,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""OpenMap"",
+                    ""type"": ""Button"",
+                    ""id"": ""106e563b-68f7-49d8-8c5d-773cbc64bd89"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Run"",
                     ""type"": ""Button"",
                     ""id"": ""fee229ed-fb0a-4518-866e-12c74598930f"",
@@ -221,6 +230,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""OpenJournal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""687858c9-c682-427d-9543-344d138f4979"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenMap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -881,6 +901,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_PlayerControls_Interact = m_PlayerControls.FindAction("Interact", throwIfNotFound: true);
         m_PlayerControls_OpenPause = m_PlayerControls.FindAction("OpenPause", throwIfNotFound: true);
         m_PlayerControls_OpenJournal = m_PlayerControls.FindAction("OpenJournal", throwIfNotFound: true);
+        m_PlayerControls_OpenMap = m_PlayerControls.FindAction("OpenMap", throwIfNotFound: true);
         m_PlayerControls_Run = m_PlayerControls.FindAction("Run", throwIfNotFound: true);
         // UIControls
         m_UIControls = asset.FindActionMap("UIControls", throwIfNotFound: true);
@@ -967,6 +988,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_Interact;
     private readonly InputAction m_PlayerControls_OpenPause;
     private readonly InputAction m_PlayerControls_OpenJournal;
+    private readonly InputAction m_PlayerControls_OpenMap;
     private readonly InputAction m_PlayerControls_Run;
     public struct PlayerControlsActions
     {
@@ -978,6 +1000,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Interact => m_Wrapper.m_PlayerControls_Interact;
         public InputAction @OpenPause => m_Wrapper.m_PlayerControls_OpenPause;
         public InputAction @OpenJournal => m_Wrapper.m_PlayerControls_OpenJournal;
+        public InputAction @OpenMap => m_Wrapper.m_PlayerControls_OpenMap;
         public InputAction @Run => m_Wrapper.m_PlayerControls_Run;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
@@ -1006,6 +1029,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @OpenJournal.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnOpenJournal;
                 @OpenJournal.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnOpenJournal;
                 @OpenJournal.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnOpenJournal;
+                @OpenMap.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnOpenMap;
+                @OpenMap.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnOpenMap;
+                @OpenMap.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnOpenMap;
                 @Run.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnRun;
                 @Run.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnRun;
                 @Run.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnRun;
@@ -1031,6 +1057,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @OpenJournal.started += instance.OnOpenJournal;
                 @OpenJournal.performed += instance.OnOpenJournal;
                 @OpenJournal.canceled += instance.OnOpenJournal;
+                @OpenMap.started += instance.OnOpenMap;
+                @OpenMap.performed += instance.OnOpenMap;
+                @OpenMap.canceled += instance.OnOpenMap;
                 @Run.started += instance.OnRun;
                 @Run.performed += instance.OnRun;
                 @Run.canceled += instance.OnRun;
@@ -1224,6 +1253,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnOpenPause(InputAction.CallbackContext context);
         void OnOpenJournal(InputAction.CallbackContext context);
+        void OnOpenMap(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
     }
     public interface IUIControlsActions

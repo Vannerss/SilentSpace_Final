@@ -24,6 +24,9 @@ namespace SilentSpace.Alien.StateMachine
         public bool debug;
         public bool gizmos;
         public float range;
+        public float detectRun;
+        public float detectWalk;
+        public float detectCrouch;
         public Timer Timer;
         [HideInInspector] public bool timerIsRunning;
         
@@ -43,11 +46,11 @@ namespace SilentSpace.Alien.StateMachine
             if (!gizmos) return;
             var pos = this.transform.position;
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(pos, 4f);
+            Gizmos.DrawWireSphere(pos, detectCrouch);
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(pos, 7f);
+            Gizmos.DrawWireSphere(pos, detectWalk);
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(pos, 15f);
+            Gizmos.DrawWireSphere(pos, detectRun);
         }
         
         private void Awake()

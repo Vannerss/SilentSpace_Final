@@ -12,12 +12,15 @@ namespace SilentSpace.UI
         private AudioController _audioController;
         private GameSettings _gameSettingsScript;
         private bool _onStart = true;
+        private PlayerManager _playerManager;
         
         public GameObject journalUI;
         public GameObject objectivesUI;
         public GameObject notesUI;
         public GameObject gamePlayUI;
         public GameObject settingsUI;
+        public GameObject mapUI;
+        public GameObject deathUI;
 
         private void Start()
         {
@@ -26,8 +29,12 @@ namespace SilentSpace.UI
             _inputManager = InputManager.Instance;
             _inputManager.OnOpenPause += OpenSettingsMenu;
             _inputManager.OnOpenJournal += OpenJournalMenu;
+            _inputManager.OnOpenMap += OpenMapMenu;
 
             _onStart = false;
+            
+            _playerManager = PlayerManager.Instance;
+            _playerManager.OnPlayerDeath += OpenDeathMenu;
         }
 
         public void OpenSettingsMenu()
@@ -67,6 +74,32 @@ namespace SilentSpace.UI
             journalUI.SetActive(false);
             objectivesUI.SetActive(false);
             notesUI.SetActive(false);
+        }
+
+        public void OpenMapMenu()
+        {
+            if (settingsUI.activeSelf) return;
+            if (!mapUI.activeSelf)
+            {
+                _inputManager.DisableLookInputs();
+                _inputManager.DisableMovementInputs();
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                mapUI.SetActive(true);
+                return;
+            }
+            _inputManager.EnableLookInputs();
+            _inputManager.EnableMovementInputs();
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            mapUI.SetActive(false);
+        }
+
+        private void OpenDeathMenu()
+        {
+            _inputManager.DisableMovementInputs();
+            _inputManager.DisableLookInputs();
+            deathUI.SetActive(true);
         }
 
         public void Click11()

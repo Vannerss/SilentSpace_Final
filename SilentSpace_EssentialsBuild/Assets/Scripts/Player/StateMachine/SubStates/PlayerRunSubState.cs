@@ -31,7 +31,7 @@ namespace SilentSpace.Player.StateMachine.SubStates
             }
             else 
             {
-                _ctx.playerManager.oxygenLevel -= 0.3f;
+                _ctx.playerManager.oxygenLevel -= 0.1f;
             }
         }
         public override void ExitState()

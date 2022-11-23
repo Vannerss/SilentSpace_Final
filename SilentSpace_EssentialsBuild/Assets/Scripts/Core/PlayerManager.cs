@@ -27,7 +27,7 @@ namespace SilentSpace.Core
         public GameObject player;
         public Transform spawnPoint;
         
-        public event Action OnPlayerDeath; //TODO: Add death logic at some point.
+        public event Action OnPlayerDeath;
             
         public int PickedUpItems { get; set; }
         public float Hp { get => health; set => health = value; }
@@ -70,6 +70,11 @@ namespace SilentSpace.Core
             return health;
         }
 
+        public float GetOxygen()
+        {
+            return oxygenLevel;
+        }
+
         public void SetHp(float value)
         {
             health = value;
@@ -97,8 +102,8 @@ namespace SilentSpace.Core
         
         public void LoadData(GameData data)
         {
-            var posHolder = Vector3.zero;
-            var rotHolder = Vector3.zero;
+            var posHolder = player.transform.position;
+            var rotHolder = player.transform.eulerAngles;
             
             this.health = data.player.hp;
             this.oxygenLevel = data.player.oxygen;
@@ -110,23 +115,21 @@ namespace SilentSpace.Core
             rotHolder.x = data.player.xRot;
             rotHolder.y = data.player.yRot;
             rotHolder.z = data.player.zRot;
-
-            SetPlayerPosition(posHolder);
-            SetPlayerRotation(rotHolder);
         }
 
         public void SaveData(ref GameData data)
         {
+
             data.player.hp = this.health;
             data.player.oxygen = this.oxygenLevel;
             data.player.totalKeyItems = this.totalKeyItems;
             data.player.totalNoteItems = this.totalNoteItems;
-            data.player.xPos = _playerPos.x;
-            data.player.yPos = _playerPos.y;
-            data.player.zPos = _playerPos.z;
-            data.player.xRot = _playerRot.x;
-            data.player.yRot = _playerRot.y;
-            data.player.zRot = _playerRot.z;
+            data.player.xPos = player.transform.position.x;
+            data.player.yPos = player.transform.position.y;
+            data.player.zPos = player.transform.position.z;
+            data.player.xRot = player.transform.eulerAngles.x;
+            data.player.yRot = player.transform.eulerAngles.y;
+            data.player.zRot = player.transform.eulerAngles.z;
         }
         #endregion
     }

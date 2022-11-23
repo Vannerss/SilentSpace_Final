@@ -1,5 +1,6 @@
 using System;
 using SilentSpace.Core;
+using SilentSpace.DataPersistence;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -110,12 +111,12 @@ namespace SilentSpace.UI
 
         public void Save()
         {
-            //Add save logic
+            DataPersistenceManager.Instance.SaveGame();
         }
 
         public void SaveAndQuit()
         {
-            //Add save and quit logic
+            Application.Quit();
         }
 
         public void Load()

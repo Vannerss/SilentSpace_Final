@@ -27,6 +27,7 @@ namespace SilentSpace.DataPersistence
             }
             Instance = this;
             DontDestroyOnLoad(Instance);
+            //LoadGame();
         }
 
         private void Start()
@@ -34,8 +35,6 @@ namespace SilentSpace.DataPersistence
             this._dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
             this._dataPersistenceObjects = FindAllDataPersistenceObjects();
             if(this._gameData != null) OnDataNotEmpty?.Invoke();
-        
-            //LoadGame();
         }
 
         public void NewGame()
@@ -81,7 +80,6 @@ namespace SilentSpace.DataPersistence
             IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
 
             return new List<IDataPersistence>(dataPersistenceObjects);
-
         }
     }
 }

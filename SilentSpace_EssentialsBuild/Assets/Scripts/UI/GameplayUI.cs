@@ -10,6 +10,7 @@ namespace SilentSpace.UI
         private PlayerManager _playerManager;
 
         public TMP_Text healthLabel;
+        public TMP_Text oxygenLabel;
         public TextMeshProUGUI percentageLabel;
 
         private void Start()
@@ -19,6 +20,7 @@ namespace SilentSpace.UI
         private void Update()
         {
             UpdateHealthLabel();
+            UpdateOxygenLabel();
         }
         private void UpdateHealthLabel()
         {
@@ -40,6 +42,11 @@ namespace SilentSpace.UI
             }
             
             healthLabel.text = _playerManager.GetHp().ToString("0");
+        }
+        
+        private void UpdateOxygenLabel()
+        {
+            oxygenLabel.text = _playerManager.GetOxygen().ToString("0");
         }
     }
 }

@@ -52,15 +52,15 @@ namespace SilentSpace.Alien.StateMachine.States
         
         public override void CheckSwitchStates()
         {
-            if (Vector3.Distance(Ctx.Position, Ctx.playerManager.Position) <= 15f && Ctx.playerManager.CurrentSubState == "Run SubState")
+            if (Vector3.Distance(Ctx.Position, Ctx.playerManager.Position) <= Ctx.detectRun && Ctx.playerManager.CurrentSubState == "Run SubState")
             {
                 SwitchToIntimidate();
             }        
-            if (Vector3.Distance(Ctx.Position, Ctx.playerManager.Position) <= 7f && Ctx.playerManager.CurrentSubState == "Walk SubState")
+            if (Vector3.Distance(Ctx.Position, Ctx.playerManager.Position) <= Ctx.detectWalk && Ctx.playerManager.CurrentSubState == "Walk SubState")
             {
                 SwitchToIntimidate();
             }        
-            if (Vector3.Distance(Ctx.Position, Ctx.playerManager.Position) <= 4f && Ctx.playerManager.CurrentSubState == "Crouch Walk SubState")
+            if (Vector3.Distance(Ctx.Position, Ctx.playerManager.Position) <= Ctx.detectCrouch && Ctx.playerManager.CurrentSubState == "Crouch Walk SubState")
             {
                 SwitchToIntimidate();
             }

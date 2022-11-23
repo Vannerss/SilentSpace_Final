@@ -11,9 +11,9 @@ namespace SilentSpace.Interactables
         
         private InputManager _inputManager;
         private PlayerManager _playerManager;
-        public TMP_Text text;
-
+        
         public ItemTypes item;
+        public GameObject text;
         
         private void Start()
         {
@@ -41,21 +41,30 @@ namespace SilentSpace.Interactables
         private void OnMouseEnter()
         {
             _inputManager.OnInteractStarted += PickUp;
+            text.SetActive(true);
             //TODO: make ui dot increase on size
         }
 
         private void OnMouseExit()
         {
             _inputManager.OnInteractStarted -= PickUp;
+            text.SetActive(false);
             //TODO: make ui dot decrease on size
         }
 
         private void PickUp()
         {
             _inputManager.OnInteractStarted -= PickUp;
-            _playerManager.PickedUpItems++;
+            if(item == ItemTypes.Note)
+            {
+                _playerManager.totalNoteItems++;
+            }
+            else
+            {
+                _playerManager.totalKeyItems++;
+            }
             itemButton.interactable = item == ItemTypes.Note;
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         }
     }
 }
