@@ -130,7 +130,6 @@ GameObject:
   - component: {fileID: 3334802}
   - component: {fileID: 2316652}
   - component: {fileID: 9535380}
-  - component: {fileID: 6599258}
   m_Layer: 0
   m_Name: door_3_top_A
   m_TagString: Untagged
@@ -224,19 +223,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &6599258
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 156806}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.7999997, y: 0.96457064, z: 0.3840836}
-  m_Center: {x: 0.00000017881393, y: 1.2822855, z: 0}
 --- !u!1 &158700
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +235,6 @@ GameObject:
   - component: {fileID: 3356886}
   - component: {fileID: 2350044}
   - component: {fileID: 9587746}
-  - component: {fileID: 6554958}
   m_Layer: 0
   m_Name: door_3_top_B
   m_TagString: Untagged
@@ -342,19 +327,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &6554958
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 158700}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.8, y: 0.9109526, z: 0.17154585}
-  m_Center: {x: 0, y: 0.34452355, z: 0}
 --- !u!1 &164122
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +444,6 @@ GameObject:
   - component: {fileID: 3376732}
   - component: {fileID: 2326234}
   - component: {fileID: 9573410}
-  - component: {fileID: 6473736}
   m_Layer: 0
   m_Name: door_3
   m_TagString: Untagged
@@ -567,17 +538,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!64 &6473736
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198422}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: e497b40124d368543a1971d44952f2d5, type: 3}
