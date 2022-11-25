@@ -28,9 +28,8 @@ namespace SilentSpace.Core
         public Transform spawnPoint;
         
         public event Action OnPlayerDeath;
-            
-        public int PickedUpItems { get; set; }
-        public float Hp { get => health; set => health = value; }
+        
+        
         public Vector3 Position => player != null ? player.transform.position : Vector3.zero;
         public float Oxygen { get => oxygenLevel; set => oxygenLevel = value; }
         public string CurrentSubState { get => _currentState; set => _currentState = value; }

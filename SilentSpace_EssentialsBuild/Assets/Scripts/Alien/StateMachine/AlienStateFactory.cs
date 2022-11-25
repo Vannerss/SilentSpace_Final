@@ -5,7 +5,7 @@ namespace SilentSpace.Alien.StateMachine
 {
     public class AlienStateFactory
     {
-        AlienStateMachine _context;
+        private readonly AlienStateMachine _context;
 
         public AlienStateFactory(AlienStateMachine currentContext)
         {

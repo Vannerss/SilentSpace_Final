@@ -7,12 +7,12 @@ namespace SilentSpace.Player.StateMachine.SubStates
     
         public PlayerCrouchSubState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
         {
-            _stateName = "Crouch SubState";
+            StateName = "Crouch SubState";
         }
 
         public override void EnterState()
         {
-            _ctx.Log("Entered Crouch SubState");
+            Ctx.Log("Entered Crouch SubState");
             HandleCrouch();
         }
         public override void FixedUpdateState() { }
@@ -22,39 +22,39 @@ namespace SilentSpace.Player.StateMachine.SubStates
         }
         public override void ExitState()
         {
-            _ctx.Log("Exited Crouch SubState");
+            Ctx.Log("Exited Crouch SubState");
             HandleUncrouch();
         }
         public override void InitializeSubstate() { }
         public override void CheckSwitchStates()
         {
-            if (!_ctx.IsCrouchingPressed && !_ctx.IsRunningPressed && _ctx.MoveInput.magnitude >= 0.1f)
+            if (!Ctx.IsCrouchingPressed && !Ctx.IsRunningPressed && Ctx.MoveInput.magnitude >= 0.1f)
             {
-                SwitchState(_factory.Walk());
+                SwitchState(Factory.Walk());
             }
-            if (!_ctx.IsCrouchingPressed && _ctx.IsRunningPressed && _ctx.MoveInput.magnitude >= 0.1f)
+            if (!Ctx.IsCrouchingPressed && Ctx.IsRunningPressed && Ctx.MoveInput.magnitude >= 0.1f)
             {
-                SwitchState(_factory.Run());
+                SwitchState(Factory.Run());
             }
-            if(_ctx.IsCrouchingPressed && _ctx.MoveInput.magnitude >= 0.1f)
+            if(Ctx.IsCrouchingPressed && Ctx.MoveInput.magnitude >= 0.1f)
             {
-                SwitchState(_factory.CrouchWalk());
+                SwitchState(Factory.CrouchWalk());
             }
-            if (!_ctx.IsCrouchingPressed && _ctx.MoveInput.magnitude <= 0.1f)
+            if (!Ctx.IsCrouchingPressed && Ctx.MoveInput.magnitude <= 0.1f)
             {
-                SwitchState(_factory.Empty());
+                SwitchState(Factory.Empty());
             }
         }
 
         void HandleCrouch()
         {
-            _ctx.transform.localScale = new Vector3(_ctx.transform.localScale.x, _ctx.crouchYScale, _ctx.transform.localScale.z);
-            _ctx.PlayerRigidbody.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+            Ctx.transform.localScale = new Vector3(Ctx.transform.localScale.x, Ctx.crouchYScale, Ctx.transform.localScale.z);
+            Ctx.PlayerRigidbody.AddForce(Vector3.down * 5f, ForceMode.Impulse);
         }
 
         void HandleUncrouch()
         {
-            _ctx.transform.localScale = new Vector3(_ctx.transform.localScale.x, _ctx.StartYScale, _ctx.transform.localScale.z);
+            Ctx.transform.localScale = new Vector3(Ctx.transform.localScale.x, Ctx.StartYScale, Ctx.transform.localScale.z);
         }
     }
 }

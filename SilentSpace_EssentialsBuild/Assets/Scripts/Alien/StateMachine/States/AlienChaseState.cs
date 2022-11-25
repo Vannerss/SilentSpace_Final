@@ -54,11 +54,9 @@ namespace SilentSpace.Alien.StateMachine.States
 
             if(Vector3.Distance(Ctx.Position, Ctx.playerManager.Position) >= 25f)
             {
-                if (!Ctx.timerIsRunning)
-                {
-                    Ctx.Timer.RemainingSeconds = 3f;
-                    Ctx.timerIsRunning = true;
-                }
+                if (Ctx.timerIsRunning) return;
+                Ctx.Timer.RemainingSeconds = 3f;
+                Ctx.timerIsRunning = true;
             }
             else
             {

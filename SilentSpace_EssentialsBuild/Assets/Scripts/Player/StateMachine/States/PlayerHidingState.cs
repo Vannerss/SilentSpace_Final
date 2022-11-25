@@ -4,7 +4,7 @@ namespace SilentSpace.Player.StateMachine.States
     {
         public PlayerHidingState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
         {
-            _stateName = "Hiding State";
+            StateName = "Hiding State";
         }
         public override void EnterState() { }
         public override void FixedUpdateState() { }

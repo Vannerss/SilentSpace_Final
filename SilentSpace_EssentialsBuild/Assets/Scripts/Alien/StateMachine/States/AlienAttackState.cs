@@ -35,7 +35,7 @@ namespace SilentSpace.Alien.StateMachine.States
 
         public override void ExitState()
         {
-            //_ctx.animator.ResetTrigger("Attack");
+            
         }
 
         public override void InitializeSubState()
@@ -45,13 +45,7 @@ namespace SilentSpace.Alien.StateMachine.States
 
         public override void CheckSwitchStates()
         {
-
             SwitchState(Factory.Chase());
-        }
-
-        private void ChangeStateOnTimerEnd()
-        {
-            //change state to specific state;
         }
     }
 }

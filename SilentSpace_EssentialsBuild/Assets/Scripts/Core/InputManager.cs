@@ -6,8 +6,10 @@ namespace SilentSpace.Core
 {
     public class InputManager : MonoBehaviour
     {
-        //Singleton
-        public static InputManager Instance;
+        /// <summary>
+        /// Static object reference for the Input Manager. (Singleton-like)
+        /// </summary>
+        public static InputManager Instance; //This has to be referenced to get access to input manager do: inputManager = InputManager.Instance;
 
         //Inputs
         private PlayerInputActions _playerInputActions;
@@ -40,8 +42,7 @@ namespace SilentSpace.Core
         private void Awake()
         {
             _playerInputActions = new PlayerInputActions();
-
-            //singleton
+            
             if (Instance == null)
             {
                 Instance = this;
@@ -56,13 +57,13 @@ namespace SilentSpace.Core
 
         private void OnEnable()
         {
+            
             /*
-         * On Enable we reference the Input control schemes we have
-         * and then enabled them. In the case of Inputs that have interactions
-         * or return a bool value like buttons, we can also subscribe methods
-         * to receive the input events (started, performed, canceled).
-         * 
-         */
+             * On Enable we reference the Input control schemes we have
+             * and then enabled them. In the case of Inputs that have interactions
+             * or return a bool value like buttons, we can also subscribe methods
+             * to receive the input events (started, performed, canceled).
+             */
 
             _movement = _playerInputActions.PlayerControls.Movement;
             _movement.Enable();
@@ -104,11 +105,12 @@ namespace SilentSpace.Core
         private void OnDisable()
         {
             /*
-         * On Disable we disable all the control scheme in the case the input manager
-         * were to be disabled or destroy. This helps with the loading through scenes
-         * and make sure double instances do not occur.
-         * 
-         */
+             * On Disable we disable all the control scheme in the case the input manager
+             * were to be disabled or destroy. This helps with the loading through scenes
+             * and make sure double instances do not occur.
+             * 
+             */
+            
             _movement.Disable();
             _mouseMovement.Disable();
             _crouch.Disable();
@@ -128,15 +130,25 @@ namespace SilentSpace.Core
         * If you want to use this as a check for a if statement you can
         * use it's magnitude to see if the inputs are being used.
         * i.e if(inputManager.GetMovement().magnitude >= 0.1) true if Getmovement's
-        * magnitude is bigger than 0. and checking for lower or equal to 0 would be the 
+        * magnitude is bigger than 0. and checking for <= to 0 would be the 
         * opposite.
-        * 
         */
+        
+        /// <summary>
+        /// Returns Vector2 WASD movement.
+        /// </summary>
+        /// <returns></returns>
+        
         public Vector2 GetMovement()
         {
             return _movement.ReadValue<Vector2>();
         }
 
+        /// <summary>
+        /// Returns Vector2 mouse movement.
+        /// </summary>
+        /// <returns></returns>
+        
         public Vector2 GetMouseMovement()
         {
             return _mouseMovement.ReadValue<Vector2>();
@@ -151,21 +163,21 @@ namespace SilentSpace.Core
         * the type of interaction the input sent. This is used to create
         * different interactions if the player tapped the button or hold
         * the button.
-        * 
         */
+        
         private void OnInteraction(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (context.started) //Sends as soon as key is pressed.
             {
                 OnInteractStarted?.Invoke();
             }
 
-            if (context.performed)
+            if (context.performed) //Sends when key is being hold.
             {
                 OnInteractHold?.Invoke();
             }
 
-            if (context.canceled)
+            if (context.canceled) //sends when key is let go.
             {
                 OnInteractCanceled?.Invoke();
             }
@@ -173,17 +185,17 @@ namespace SilentSpace.Core
 
         private void OnRun(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (context.started) //Sends as soon as key is pressed.
             {
                 OnRunStarted?.Invoke();
             }
 
-            if (context.performed)
+            if (context.performed) //Sends when key is being hold.
             {
                 OnRunHold?.Invoke();
             }
 
-            if (context.canceled)
+            if (context.canceled) //Sends when key is let go.
             {
                 OnRunCanceled?.Invoke();
             }
@@ -191,17 +203,17 @@ namespace SilentSpace.Core
 
         private void OnCrouch(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (context.started) //Sends as soon as key is pressed.
             {
                 OnCrouchStarted?.Invoke();
             }
 
-            if (context.performed)
+            if (context.performed) //Sends when key is hold.
             {
                 OnCrouchHold?.Invoke();
             }
 
-            if (context.canceled)
+            if (context.canceled) //Sends when key is let go.
             {
                 OnCrouchCanceled?.Invoke();
             }
@@ -219,53 +231,84 @@ namespace SilentSpace.Core
 
         private void OnPause(InputAction.CallbackContext context)
         {
-            OnOpenPause?.Invoke();
+            OnOpenPause?.Invoke(); //Sends when press.
         }
 
         private void OnJournal(InputAction.CallbackContext context)
         {
-            OnOpenJournal?.Invoke();
+            OnOpenJournal?.Invoke(); //Sends when press.
         }
 
         private void OnMap(InputAction.CallbackContext context)
         {
-            Debug.Log(context);
-            OnOpenMap?.Invoke();
+            OnOpenMap?.Invoke(); //Sends when press.
         }
         #endregion
-
-        public bool IsRunEnabled()
-        {
-            return _run.enabled;
-        }
 
         #region Enable/Disable Inputs
 
         /*
          * PlayerControls Enables/Disables this can be called by any script that references Input Manager. giving them the ability to disable and reenable the controls.
          */
+        
+        /// <summary>
+        /// Enable mouse movement inputs.
+        /// </summary>
         public void EnableLookInputs() => _mouseMovement.Enable();
-
+        
+        /// <summary>
+        /// Disable mouse movement inputs.
+        /// </summary>
         public void DisableLookInputs() => _mouseMovement.Disable();
 
-        //Enable/Disable Ability to move.
+        /// <summary>
+        /// Enable WASD movement inputs.
+        /// </summary>
         public void EnableMovementInputs() => _movement.Enable();
+        
+        /// <summary>
+        /// Disable WASD movement inputs.
+        /// </summary>
         public void DisableMovementInputs() => _movement.Disable();
         
-        //Enable/Disable Ability to Run.
+        /// <summary>
+        /// Enable run inputs.
+        /// </summary>
         public void EnableRunInputs() => _run.Enable();
+        
+        /// <summary>
+        /// Disable run inputs.
+        /// </summary>
         public void DisableRunInputs() => _run.Disable();
 
-        //Enable/Disable Ability to interact.
+        /// <summary>
+        /// Enable interact inputs.
+        /// </summary>
         public void EnableInteractionInputs() => _interact.Enable();
+        
+        /// <summary>
+        /// Disable interact inputs.
+        /// </summary>
         public void DisableInteractInputs() => _interact.Disable();
 
-        //Enable/Disable Ability to open pause menu.
+        /// <summary>
+        /// Enable pause inputs.
+        /// </summary>
         public void EnableOpenPauseInputs() => _openPause.Enable();
+        
+        /// <summary>
+        /// Disable pause inputs.
+        /// </summary>
         public void DisableOpenPauseInputs() => _openPause.Disable();
 
-        //Enable/Disable Ability to open journal menu.
+        /// <summary>
+        /// Enable journal inputs.
+        /// </summary>
         public void EnableOpenJournalInputs() => _openJournal.Enable();
+        
+        /// <summary>
+        /// Disable journal inputs.
+        /// </summary>
         public void DisableOpenJournalInputs() => _openJournal.Disable();
 
         #endregion

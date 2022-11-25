@@ -10,13 +10,18 @@ namespace SilentSpace.Alien.Handlers
         {
             hitbox.SetActive(false);
         }
-
+        /// <summary>
+        /// Triggered by animation.
+        /// </summary>
         public void EnableHitbox()
         {
             hitbox.SetActive(true);
             print("It Enabled");
         }
 
+        /// <summary>
+        /// Triggered by animation.
+        /// </summary>
         public void DisableHitbox()
         {
             hitbox.SetActive(false);

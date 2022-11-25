@@ -7,13 +7,17 @@ namespace SilentSpace.Player.StateMachine
 {
     public class PlayerStateMachine : MonoBehaviour
     {
+        [SerializeField] private string currentStateName;
+        [SerializeField] private string currentSubStateName;
         [SerializeField] private Vector2 moveInput;
-        public bool isRunning;
-        public bool isCrouching;
         
+        private PlayerBaseState _currentState;
+        private PlayerBaseState _currentSubState;
+        private PlayerStateFactory _states;
         private AudioController _audioController;
         private Rigidbody _rb;
         private Vector3 _moveDirection;
+        private float _playerHeight = 1f;
         private float _speed;
         private float _startYScale;
         private bool _onCooldown;
@@ -21,37 +25,32 @@ namespace SilentSpace.Player.StateMachine
         public Timer timer;
         public PlayerManager playerManager;
         public InputManager inputManager;
-    
-        //[FormerlySerializedAs("_walkSpeed")]
-        [Header("Movement")]
-        [Tooltip("Player speed while walking.")] 
+        public RaycastHit SlopeHit;
+        public bool isRunning;
+        public bool isCrouching;
+        
+        
+        [Header("Movement")] 
+        [Tooltip("Player speed while walking.")]
         public float walkSpeed = 5f;
-        [Tooltip("Player speed while running.")] 
+
+        [Tooltip("Player speed while running.")]
         public float runSpeed = 10f;
-        [Tooltip("Player speed while crouch walking.")] 
+
+        [Tooltip("Player speed while crouch walking.")]
         public float crouchSpeed = 2f;
-        [Tooltip("Max angle the player can go up a slope.")] 
+
+        [Tooltip("Max angle the player can go up a slope.")]
         public float maxSlopeAngle = 35;
     
         [Header("Crouch Height")]
         public float crouchYScale = 0.7f;
+        
         [Header("Facing Orientation")]
         public Transform orientation;
+        
         [Header("Debug Logging")]
         public bool debug;
-
-        //Slope Variables
-        private float _playerHeight = 1f;
-        public RaycastHit SlopeHit;
-
-        //state variable
-        private PlayerBaseState _currentState;
-        private PlayerBaseState _currentSubState;
-        private PlayerStateFactory _states;
-
-        //string statename;
-        [SerializeField] private string currentStateName;
-        [SerializeField] private string currentSubStateName;
 
         #region SetGets
         public PlayerBaseState CurrentState { get => _currentState; set => _currentState = value; }
@@ -67,7 +66,6 @@ namespace SilentSpace.Player.StateMachine
         public float PlayerHeight { get => _playerHeight; set => _playerHeight = value; }
         public float StartYScale => _startYScale;
         public AudioController Audio => _audioController;
-        public float OxygenLevel { get => playerManager.Oxygen; set => playerManager.Oxygen = value; }
 
         #endregion
 
@@ -84,9 +82,9 @@ namespace SilentSpace.Player.StateMachine
 
             inputManager = InputManager.Instance;
             inputManager.OnCrouchHold += Crouch;
-            inputManager.OnCrouchCanceled += Uncrouch;
+            inputManager.OnCrouchCanceled += Crouch;
             inputManager.OnRunHold += Run;
-            inputManager.OnRunCanceled += StopRun;
+            inputManager.OnRunCanceled += Run;
 
             _audioController = AudioController.Instance;
 
@@ -114,30 +112,27 @@ namespace SilentSpace.Player.StateMachine
 
         private void Crouch()
         {
-            isCrouching = true;
-        }
-
-        private void Uncrouch()
-        {
-            isCrouching = false;
+            isCrouching = isCrouching != true;
         }
 
         private void Run()
         {
-            isRunning = true;
+            isRunning = isCrouching != true;
         }
 
-        private void StopRun()
-        {
-            isRunning = false;
-        }
-
+        /// <summary>
+        /// Custom debug.log can be disable in inspector by setting debug to false.
+        /// </summary>
+        /// <param name="msg"></param>
         public void Log(string msg)
         {
-            if (!debug) return; //guard clause'
+            if (!debug) return;
             print("[PlayerStateMachine]:" + msg);
         }
 
+        /// <summary>
+        /// Starts run cooldown.
+        /// </summary>
         public void RunOnCooldown()
         {
             timer = new Timer(3f);

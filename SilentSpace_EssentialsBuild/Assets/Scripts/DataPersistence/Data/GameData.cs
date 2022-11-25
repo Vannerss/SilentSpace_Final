@@ -3,6 +3,9 @@ namespace SilentSpace.DataPersistence.Data
     [System.Serializable]
     public class GameData
     {
+        //TODO: This doesn't really work probably do to attempting to divide data in different classes. probably struct is better or just straight up call them.
+        
+        
         public PlayerData player;
         public AlienData alien;
         public JournalData journal;

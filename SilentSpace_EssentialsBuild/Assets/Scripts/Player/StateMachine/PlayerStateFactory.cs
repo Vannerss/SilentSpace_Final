@@ -5,7 +5,7 @@ namespace SilentSpace.Player.StateMachine
 {
     public class PlayerStateFactory
     {
-        private PlayerStateMachine _context;
+        private readonly PlayerStateMachine _context;
 
         public PlayerStateFactory(PlayerStateMachine currentContext)
         {

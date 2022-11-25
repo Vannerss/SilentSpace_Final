@@ -14,12 +14,10 @@ namespace SilentSpace.Player.Handlers
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.CompareTag("Hitbox"))
-            {
-                var damage = _playerManager.GetHp() - 21; //replace the 21 with ENEMYMANAGAER.GETDMG();
-                _playerManager.SetHp(damage);
-                print("TookDmg");
-            }
+            if (!other.CompareTag("Hitbox")) return;
+            var damage = _playerManager.GetHp() - 21; //replace the 21 with ENEMYMANAGAER.GETDMG();
+            _playerManager.SetHp(damage);
+            print("TookDmg");
         }
     }
 }

@@ -6,12 +6,12 @@ namespace SilentSpace.Player.StateMachine.States
         public PlayerIdleState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
         {
             InitializeSubstate();
-            _isRootState = true;
-            _stateName = "Idle State";
+            IsRootState = true;
+            StateName = "Idle State";
         }
         public override void EnterState()
         {
-            _ctx.Log("Entered Idle State");
+            Ctx.Log("Entered Idle State");
         }
         public override void FixedUpdateState() { }
         public override void UpdateState()
@@ -20,38 +20,38 @@ namespace SilentSpace.Player.StateMachine.States
         }
         public override void ExitState()
         {
-            _ctx.Log("Exited Idle State");
+            Ctx.Log("Exited Idle State");
         }
 
         public override void InitializeSubstate()
         {
-            if(!_ctx.IsCrouchingPressed && _ctx.MoveInput.magnitude <= 0f)
+            if(!Ctx.IsCrouchingPressed && Ctx.MoveInput.magnitude <= 0f)
             {
-                SetSubState(_factory.Empty());
+                SetSubState(Factory.Empty());
             }
-            if (_ctx.IsCrouchingPressed && _ctx.MoveInput.magnitude <= 0f)
+            if (Ctx.IsCrouchingPressed && Ctx.MoveInput.magnitude <= 0f)
             {
-                SetSubState(_factory.Crouch());
+                SetSubState(Factory.Crouch());
             }
-            if (!_ctx.IsRunningPressed && !_ctx.IsCrouchingPressed && _ctx.MoveInput.magnitude >= 0.1f)
+            if (!Ctx.IsRunningPressed && !Ctx.IsCrouchingPressed && Ctx.MoveInput.magnitude >= 0.1f)
             {
-                SetSubState(_factory.Walk());
+                SetSubState(Factory.Walk());
             }
-            if (_ctx.IsCrouchingPressed && _ctx.MoveInput.magnitude >= 0.1f)
+            if (Ctx.IsCrouchingPressed && Ctx.MoveInput.magnitude >= 0.1f)
             {
-                SetSubState(_factory.CrouchWalk());
+                SetSubState(Factory.CrouchWalk());
             }
-            if (_ctx.IsRunningPressed && !_ctx.IsCrouchingPressed && _ctx.MoveInput.magnitude >= 0.1f)
+            if (Ctx.IsRunningPressed && !Ctx.IsCrouchingPressed && Ctx.MoveInput.magnitude >= 0.1f)
             {
-                SetSubState(_factory.Run());
+                SetSubState(Factory.Run());
             }
         }
 
         public override void CheckSwitchStates()
         {
-            if (_ctx.MoveInput.magnitude >= 0.1f)
+            if (Ctx.MoveInput.magnitude >= 0.1f)
             {
-                SwitchState(_factory.Move());
+                SwitchState(Factory.Move());
             }
         }
     }

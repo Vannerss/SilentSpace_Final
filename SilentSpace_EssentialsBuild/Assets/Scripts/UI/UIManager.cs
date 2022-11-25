@@ -102,6 +102,9 @@ namespace SilentSpace.UI
             deathUI.SetActive(true);
         }
 
+
+        #region UI Audio references
+
         public void Click11()
         {
             if (_onStart) return;
@@ -125,5 +128,7 @@ namespace SilentSpace.UI
             if (_onStart) return;
             _audioController.PlayAudio(AudioType.SFX_UI_SpaceyClick_Button);
         }
+
+        #endregion
     }
 }

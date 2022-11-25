@@ -4,15 +4,15 @@ namespace SilentSpace.Player.StateMachine.SubStates
     {
         public PlayerEmptySubState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory)
         {
-            _stateName = "Empty SubState";
+            StateName = "Empty SubState";
         }
         public override void EnterState() 
         {
-            _ctx.Log("Entered Empty SubState"); 
+            Ctx.Log("Entered Empty SubState"); 
         }
         public override void ExitState()
         {
-            _ctx.Log("Exited Empty SubState");
+            Ctx.Log("Exited Empty SubState");
         }
         public override void FixedUpdateState() { }
         public override void InitializeSubstate() { }
@@ -22,24 +22,24 @@ namespace SilentSpace.Player.StateMachine.SubStates
         }
         public override void CheckSwitchStates()
         {
-            if (!_ctx.IsRunningPressed && !_ctx.IsCrouchingPressed && _ctx.MoveInput.magnitude >= 0.1f)
+            if (!Ctx.IsRunningPressed && !Ctx.IsCrouchingPressed && Ctx.MoveInput.magnitude >= 0.1f)
             {
-                SwitchState(_factory.Walk());
+                SwitchState(Factory.Walk());
             }
 
-            if (_ctx.IsRunningPressed && !_ctx.IsCrouchingPressed && _ctx.MoveInput.magnitude >= 0.1f)
+            if (Ctx.IsRunningPressed && !Ctx.IsCrouchingPressed && Ctx.MoveInput.magnitude >= 0.1f)
             {
-                SwitchState(_factory.Run());
+                SwitchState(Factory.Run());
             }
 
-            if (_ctx.IsCrouchingPressed && _ctx.MoveInput.magnitude >= 0.1f)
+            if (Ctx.IsCrouchingPressed && Ctx.MoveInput.magnitude >= 0.1f)
             {
-                SwitchState(_factory.CrouchWalk());
+                SwitchState(Factory.CrouchWalk());
             }
 
-            if (_ctx.IsCrouchingPressed && !_ctx.IsRunningPressed && _ctx.MoveInput.magnitude <= 0.1f)
+            if (Ctx.IsCrouchingPressed && !Ctx.IsRunningPressed && Ctx.MoveInput.magnitude <= 0.1f)
             {
-                SwitchState(_factory.Crouch());
+                SwitchState(Factory.Crouch());
             }
         }
     }

@@ -13,6 +13,9 @@ namespace SilentSpace.Alien.Handlers
             _audio = AudioController.Instance;
         }
 
+        /// <summary>
+        /// Triggered by animation.
+        /// </summary>
         public void PlayStep()
         {
             _audio.PlayAudio(AudioType.SFX_Enemy_Creature_Step);

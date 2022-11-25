@@ -12,7 +12,7 @@ namespace SilentSpace.Core
         public GameObject loadingInterface;
         public Image loadingProgressBar;
 
-        private List<AsyncOperation> _scenesToLoad = new List<AsyncOperation>();
+        private readonly List<AsyncOperation> _scenesToLoad = new List<AsyncOperation>();
 
         public void StartGame()
         {
@@ -27,20 +27,20 @@ namespace SilentSpace.Core
         {
             menu.SetActive(false);
         }
-
+        
         private void ShowLoadingScreen()
         {
             loadingInterface.SetActive(true);
         }
 
+        //Shows a loading bar that increased by scene loading progress that unity gives us scene.progress
         private IEnumerator LoadingScreen()
         {
-            var totalProgress = 0f;
-            for (var i = 0; i < _scenesToLoad.Count; i++)
+            foreach (var scene in _scenesToLoad)
             {
-                while (!_scenesToLoad[i].isDone)
+                while (!scene.isDone)
                 {
-                    totalProgress = Mathf.Clamp01(_scenesToLoad[i].progress / .9f);
+                    var totalProgress = Mathf.Clamp01(scene.progress / .9f);
                     loadingProgressBar.fillAmount = totalProgress / _scenesToLoad.Count;
                     yield return null;
                 }

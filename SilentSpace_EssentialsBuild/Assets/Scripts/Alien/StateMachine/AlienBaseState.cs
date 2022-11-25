@@ -4,10 +4,10 @@ namespace SilentSpace.Alien.StateMachine
     public abstract class AlienBaseState
     {
         protected bool IsRootState = false;
-        protected AlienStateMachine Ctx;
-        protected AlienStateFactory Factory;
-        protected AlienBaseState CurrentSuperState;
-        protected AlienBaseState CurrentSubState;
+        protected readonly AlienStateMachine Ctx;
+        protected readonly AlienStateFactory Factory;
+        private AlienBaseState _currentSuperState;
+        private AlienBaseState _currentSubState;
         protected string StateName;
         
         public AlienBaseState(AlienStateMachine currentContext, AlienStateFactory alienStateFactory)
@@ -26,9 +26,9 @@ namespace SilentSpace.Alien.StateMachine
         public void UpdateStates()
         {
             UpdateState();
-            if (CurrentSubState != null)
+            if (_currentSubState != null)
             {
-                CurrentSubState.UpdateStates();
+                _currentSubState.UpdateStates();
             }
         }
 
@@ -43,18 +43,18 @@ namespace SilentSpace.Alien.StateMachine
             {
                 Ctx.CurrentState = newState;
             }
-            else if (CurrentSuperState != null)
+            else if (_currentSuperState != null)
             {
-                CurrentSuperState.SetSubState(newState);
+                _currentSuperState.SetSubState(newState);
             }
         }
-        protected void SetSuperState(AlienBaseState newSuperState)
+        private void SetSuperState(AlienBaseState newSuperState)
         {
-            CurrentSuperState = newSuperState;
+            _currentSuperState = newSuperState;
         }
         protected void SetSubState(AlienBaseState newSubState)
         {
-            CurrentSubState = newSubState;
+            _currentSubState = newSubState;
             newSubState.SetSuperState(this);
         }
     }
