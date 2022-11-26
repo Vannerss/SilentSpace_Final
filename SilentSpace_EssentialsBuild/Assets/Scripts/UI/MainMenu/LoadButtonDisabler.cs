@@ -11,7 +11,7 @@ namespace SilentSpace.UI.MainMenu
         private void Start()
         {
             _dataPersistenceManager = DataPersistenceManager.Instance;
-            _dataPersistenceManager.OnDataNotEmpty += MakeLoadInteractable;
+            if (_dataPersistenceManager.gameData != null) MakeLoadInteractable();
         }
 
         private void MakeLoadInteractable()

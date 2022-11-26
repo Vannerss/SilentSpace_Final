@@ -58,13 +58,14 @@ namespace SilentSpace.Interactables
             if(item == ItemTypes.Note)
             {
                 _playerManager.totalNoteItems++;
+                this.transform.parent.gameObject.SetActive(false);
             }
             else
             {
                 _playerManager.totalKeyItems++;
+                this.gameObject.SetActive(false);
             }
             itemButton.interactable = item == ItemTypes.Note;
-            this.gameObject.SetActive(false);
         }
     }
 }

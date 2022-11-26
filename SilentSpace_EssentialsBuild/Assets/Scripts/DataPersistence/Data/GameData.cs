@@ -1,130 +1,84 @@
+using UnityEngine;
+
 namespace SilentSpace.DataPersistence.Data
 {
     [System.Serializable]
     public class GameData
     {
-        //TODO: This doesn't really work probably do to attempting to divide data in different classes. probably struct is better or just straight up call them.
+        public float playerHp;
+        public float playerOxygen;
+        public int playerKeyItems;
+        public int playerNoteItems;
+        public Vector3 playerPosition;
+        public Vector3 playerRotation;
+
+        public Vector3 alienPosition;
+        public Vector3 alienRotation;
+
+        public bool keyItemButtonOne;
+        public bool keyItemButtonTwo;
+        public bool keyItemButtonThree;
+        public bool keyItemButtonFour;
+        public bool keyItemButtonFive;
+        
+        public bool noteItemButtonOne;
+        public bool noteItemButtonTwo;
+        public bool noteItemButtonThree;
+        public bool noteItemButtonFour;
+        public bool noteItemButtonFive;
+        
+        public bool keyItemObjectOne;
+        public bool keyItemObjectTwo;
+        public bool keyItemObjectThree;
+        public bool keyItemObjectFour;
+        public bool keyItemObjectFive;
+        
+        public bool noteItemObjectOne;
+        public bool noteItemObjectTwo;
+        public bool noteItemObjectThree;
+        public bool noteItemObjectFour;
+        public bool noteItemObjectFive;
         
         
-        public PlayerData player;
-        public AlienData alien;
-        public JournalData journal;
-        public SceneData scene;
-        
-        //Starting Values
         public GameData()
         {
-            player = new PlayerData
-            {
-                hp = 100f,
-                oxygen = 100f,
-                totalKeyItems = 0,
-                totalNoteItems = 0,
-                xPos = -31.19f,
-                yPos = 0,
-                zPos = 8.11f,
-                xRot = 0,
-                yRot = 0,
-                zRot = 0,
-            };
+            //Player Data.
+            this.playerHp = 100f;
+            this.playerOxygen = 100f;
+            this.playerKeyItems = 0;
+            this.playerNoteItems = 0;
+            this.playerPosition = Vector3.zero; //TODO: Change for starting position.
+            this.playerRotation = Vector3.zero; //TODO: Change for starting rotation.
+
+            //Alien Data.
+            this.alienPosition = Vector3.zero; //TODO: Change for starting position.
+            this.alienRotation = Vector3.zero; //TODO: Change for starting rotation.
+
+            //UI Buttons Interactable State.
+            this.keyItemButtonOne = true;
+            this.keyItemButtonTwo = true;
+            this.keyItemButtonThree = true;
+            this.keyItemButtonFour = true;
+            this.keyItemButtonFive = true;
+
+            this.noteItemButtonOne = false;
+            this.noteItemButtonTwo = false;
+            this.noteItemButtonThree = false;
+            this.noteItemButtonFour = false;
+            this.noteItemButtonFive = false;
             
-            alien = new AlienData()
-            {
-                xPos = -31.48f,
-                yPos = 0,
-                zPos = 49.2f,
-                xRot = 0,
-                yRot = 0,
-                zRot = 0,
-            };
+            //Objects state on scene.
+            this.keyItemObjectOne = true;
+            this.keyItemObjectTwo = true;
+            this.keyItemObjectThree = true;
+            this.keyItemObjectFour = true;
+            this.keyItemObjectFive = true;
 
-            journal = new JournalData()
-            {
-                keyItemOne = true,
-                keyItemTwo = true,
-                keyItemThree = true,
-                keyItemFour = true,
-                keyItemFive = true,
-                
-                noteItemOne = false,
-                noteItemTwo = false,
-                noteItemThree = false,
-                noteItemFour = false,
-                noteItemFive = false,
-            };
-
-            scene = new SceneData()
-            {
-                keyItemOne = true,
-                keyItemTwo = true,
-                keyItemThree = true,
-                keyItemFour = true,
-                keyItemFive = true,
-
-                noteItemOne = false,
-                noteItemTwo = false,
-                noteItemThree = false,
-                noteItemFour = false,
-                noteItemFive = false,
-            };
-        }
-
-        [System.Serializable]
-        public class PlayerData
-        {
-            public float hp;
-            public float oxygen;
-            public int totalKeyItems;
-            public int totalNoteItems;
-            public float xPos;
-            public float yPos;
-            public float zPos;
-            public float xRot;
-            public float yRot;
-            public float zRot;
-        }
-
-        [System.Serializable]
-        public class AlienData
-        {
-            public float xPos;
-            public float yPos;
-            public float zPos;
-            public float xRot;
-            public float yRot;
-            public float zRot;
-        }
-
-        [System.Serializable]
-        public class JournalData
-        {
-            public bool keyItemOne;
-            public bool keyItemTwo;
-            public bool keyItemThree;
-            public bool keyItemFour;
-            public bool keyItemFive;
-            
-            public bool noteItemOne;
-            public bool noteItemTwo;
-            public bool noteItemThree;
-            public bool noteItemFour;
-            public bool noteItemFive;
-        }
-        
-        [System.Serializable]
-        public class SceneData
-        {
-            public bool keyItemOne;
-            public bool keyItemTwo;
-            public bool keyItemThree;
-            public bool keyItemFour;
-            public bool keyItemFive;
-            
-            public bool noteItemOne;
-            public bool noteItemTwo;
-            public bool noteItemThree;
-            public bool noteItemFour;
-            public bool noteItemFive;
+            this.noteItemObjectOne = true;
+            this.noteItemObjectTwo = true;
+            this.noteItemObjectThree = true;
+            this.noteItemObjectFour = true;
+            this.noteItemObjectFive = true;
         }
     }
 }

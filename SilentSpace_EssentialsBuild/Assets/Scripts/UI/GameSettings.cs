@@ -19,8 +19,7 @@ namespace SilentSpace.UI
             "hardest",
             "Impossible",
         };
-
-        private PlayerManager _playerManager;
+        
         private int _selectedDifficulty;
         private int _amountOfDifficultyInteractions;
 
@@ -32,23 +31,20 @@ namespace SilentSpace.UI
 
         private void Start()
         {
-            _playerManager = PlayerManager.Instance;
-            
+
             if (PlayerPrefs.HasKey("SelectedDifficulty")) _selectedDifficulty = PlayerPrefs.GetInt("SelectedDifficulty");
             
             UpdateDifficultyLabel();
-            
-            if(_playerManager != null)
+
+            if (PlayerPrefs.HasKey("Sensitivity"))
             {
-                if (PlayerPrefs.HasKey("Sensitivity"))
-                {
-                    SetSensitiviy(PlayerPrefs.GetFloat("Sensitivity"));
-                    sensitivitySlider.value = PlayerPrefs.GetFloat("Sensitivity");
-                }
+                SetSensitiviy(PlayerPrefs.GetFloat("Sensitivity"));
+                sensitivitySlider.value = PlayerPrefs.GetFloat("Sensitivity");
             }
             else
             {
-                SetSensitiviy(.3f);
+                SetSensitiviy(0.3f);
+                sensitivitySlider.value = PlayerPrefs.GetFloat("Sensitivity");
             }
 
             this.gameObject.SetActive(false);
@@ -98,9 +94,6 @@ namespace SilentSpace.UI
         public void SetSensitiviy(float value)
         {
             UpdateSensitivityLabel(value);
-            if(_playerManager == null) return;
-            _playerManager.xSensitivity = value;
-            _playerManager.ySensitivity = value;
             PlayerPrefs.SetFloat("Sensitivity", value);
         }
 
@@ -121,7 +114,7 @@ namespace SilentSpace.UI
 
         public void Load()
         {
-            //Add load logic
+            DataPersistenceManager.Instance.LoadGame();
         }
     }
 }

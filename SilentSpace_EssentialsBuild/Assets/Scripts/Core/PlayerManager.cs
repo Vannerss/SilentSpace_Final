@@ -16,8 +16,6 @@ namespace SilentSpace.Core
         
         private string _currentState;
         private string _currentSubState;
-        private Vector3 _playerPos;
-        private Vector3 _playerRot;
 
         public int totalKeyItems;
         public int totalNoteItems;
@@ -46,18 +44,8 @@ namespace SilentSpace.Core
             }
         }
 
-        private void Start()
-        {
-            if (player != null)
-            {
-                _playerPos = player.transform.position;
-                _playerRot = player.transform.rotation.eulerAngles;
-            }
-        }
-
         private void Update()
         {
-            Debug.Log(oxygenLevel);
             if (oxygenLevel <= 0f)
             {
                 SetHp(health - 0.10f);
@@ -89,46 +77,24 @@ namespace SilentSpace.Core
         }
 
         #region Load & Save
-        private void SetPlayerPosition(Vector3 position)
-        {
-            if (player != null) player.transform.position = position;
-        }
-
-        private void SetPlayerRotation(Vector3 rotation)
-        {
-            if (player != null) player.transform.eulerAngles = rotation;
-        }
-        
         public void LoadData(GameData data)
         {
-            var posHolder = player.transform.position;
-            var rotHolder = player.transform.eulerAngles;
-            
-            this.health = data.player.hp;
-            this.oxygenLevel = data.player.oxygen;
-            this.totalKeyItems = data.player.totalKeyItems;
-            this.totalKeyItems = data.player.totalNoteItems;
-            posHolder.x = data.player.xPos;
-            posHolder.y = data.player.yPos;
-            posHolder.z = data.player.zPos;
-            rotHolder.x = data.player.xRot;
-            rotHolder.y = data.player.yRot;
-            rotHolder.z = data.player.zRot;
+            this.health = data.playerHp;
+            this.oxygenLevel = data.playerOxygen;
+            this.totalKeyItems = data.playerKeyItems;
+            this.totalNoteItems = data.playerNoteItems;
+            this.player.transform.position = data.playerPosition;
+            this.player.transform.eulerAngles = data.playerRotation;
         }
-
+        
         public void SaveData(ref GameData data)
         {
-
-            data.player.hp = this.health;
-            data.player.oxygen = this.oxygenLevel;
-            data.player.totalKeyItems = this.totalKeyItems;
-            data.player.totalNoteItems = this.totalNoteItems;
-            data.player.xPos = player.transform.position.x;
-            data.player.yPos = player.transform.position.y;
-            data.player.zPos = player.transform.position.z;
-            data.player.xRot = player.transform.eulerAngles.x;
-            data.player.yRot = player.transform.eulerAngles.y;
-            data.player.zRot = player.transform.eulerAngles.z;
+            data.playerHp = this.health;
+            data.playerOxygen = this.oxygenLevel;
+            data.playerKeyItems = this.totalKeyItems;
+            data.playerNoteItems = this.totalNoteItems;
+            data.playerPosition = this.player.transform.position;
+            data.playerRotation = this.player.transform.eulerAngles;
         }
         #endregion
     }

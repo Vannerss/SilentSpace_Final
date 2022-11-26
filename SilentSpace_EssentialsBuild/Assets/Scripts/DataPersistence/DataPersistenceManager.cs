@@ -11,13 +11,10 @@ namespace SilentSpace.DataPersistence
         [Header("File Storage Config")]
         [SerializeField] private string fileName;
 
-        private GameData _gameData;
+        public GameData gameData;
         private List<IDataPersistence> _dataPersistenceObjects;
         private FileDataHandler _dataHandler;
-
         public static DataPersistenceManager Instance { get; private set; }
-
-        public event Action OnDataNotEmpty;
 
         private void Awake()
         {
@@ -26,7 +23,6 @@ namespace SilentSpace.DataPersistence
                 Debug.LogError("Found more than one Data Persistence Manager in the scene.");
             }
             Instance = this;
-            DontDestroyOnLoad(Instance);
             //LoadGame();
         }
 
@@ -34,20 +30,19 @@ namespace SilentSpace.DataPersistence
         {
             this._dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
             this._dataPersistenceObjects = FindAllDataPersistenceObjects();
-            if(this._gameData != null) OnDataNotEmpty?.Invoke();
         }
 
         public void NewGame()
         {
-            this._gameData = new GameData();
+            this.gameData = new GameData();
             SaveGame();
         }
 
         public void LoadGame()
         {
-            this._gameData = _dataHandler.Load();
+            this.gameData = _dataHandler.Load();
 
-            if (this._gameData == null)
+            if (this.gameData == null)
             {
                 Debug.Log("No data was found. Initializing to default values.");
                 NewGame();
@@ -55,7 +50,7 @@ namespace SilentSpace.DataPersistence
 
             foreach (IDataPersistence dataPersistenceObj in _dataPersistenceObjects)
             {
-                dataPersistenceObj.LoadData(_gameData);
+                dataPersistenceObj.LoadData(gameData);
             }
         }
 
@@ -63,10 +58,10 @@ namespace SilentSpace.DataPersistence
         {
             foreach (IDataPersistence dataPersistenceObj in _dataPersistenceObjects)
             {
-                dataPersistenceObj.SaveData(ref _gameData);
+                dataPersistenceObj.SaveData(ref gameData);
             }
 
-            _dataHandler.Save(_gameData);
+            _dataHandler.Save(gameData);
         }
 
         public void QuitAndSave()

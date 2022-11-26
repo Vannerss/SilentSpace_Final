@@ -114,7 +114,7 @@ RectTransform:
   - {fileID: 2020351890486399273}
   - {fileID: 2020351891845486760}
   m_Father: {fileID: 6634519528293814187}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -371,7 +371,7 @@ RectTransform:
   - {fileID: 2020351892156429166}
   - {fileID: 2020351890441160917}
   m_Father: {fileID: 6634519528293814187}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -457,6 +457,16 @@ MonoBehaviour:
   - text: 
   - text: 
   - text: 
+  noteItem1: {fileID: 0}
+  noteItem2: {fileID: 0}
+  noteItem3: {fileID: 0}
+  noteItem4: {fileID: 0}
+  noteItem5: {fileID: 0}
+  noteObject1: {fileID: 0}
+  noteObject2: {fileID: 0}
+  noteObject3: {fileID: 0}
+  noteObject4: {fileID: 0}
+  noteObject5: {fileID: 0}
 --- !u!1 &2020351890415724121
 GameObject:
   m_ObjectHideFlags: 0
@@ -2867,7 +2877,7 @@ RectTransform:
   - {fileID: 2020351891895766753}
   - {fileID: 2020351890753858567}
   m_Father: {fileID: 6634519528293814187}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2953,6 +2963,16 @@ MonoBehaviour:
   - text: 
   - text: 
   - text: 
+  keyItem1: {fileID: 0}
+  keyItem2: {fileID: 0}
+  keyItem3: {fileID: 0}
+  keyItem4: {fileID: 0}
+  keyItem5: {fileID: 0}
+  keyObject1: {fileID: 0}
+  keyObject2: {fileID: 0}
+  keyObject3: {fileID: 0}
+  keyObject4: {fileID: 0}
+  keyObject5: {fileID: 0}
 --- !u!1 &2020351891455995033
 GameObject:
   m_ObjectHideFlags: 0
@@ -5157,10 +5177,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6634519529456545147}
+  - {fileID: 6634519529461742302}
   - {fileID: 2020351890201415609}
   - {fileID: 2020351891363723732}
   - {fileID: 2020351890372016890}
-  - {fileID: 6634519529461742302}
   - {fileID: 6634519528990242035}
   - {fileID: 6634519528655594817}
   - {fileID: 6634519529227987308}
@@ -5188,6 +5208,8 @@ MonoBehaviour:
   notesUI: {fileID: 2020351890372016891}
   gamePlayUI: {fileID: 6634519529461742241}
   settingsUI: {fileID: 6634519528655594816}
+  mapUI: {fileID: 0}
+  deathUI: {fileID: 0}
 --- !u!1 &6634519528509151433
 GameObject:
   m_ObjectHideFlags: 0
@@ -5744,7 +5766,7 @@ RectTransform:
   - {fileID: 6634519529016782275}
   - {fileID: 7723021104510321157}
   m_Father: {fileID: 6634519528293814187}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -5825,6 +5847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthLabel: {fileID: 6634519528162444061}
+  oxygenLabel: {fileID: 0}
   percentageLabel: {fileID: 6634519529253719144}
 --- !u!1 &6634519529653984036
 GameObject:

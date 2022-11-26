@@ -1,5 +1,8 @@
+
+using System;
 using System.Collections.Generic;
 using System.Collections;
+using SilentSpace.DataPersistence;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,13 +11,31 @@ namespace SilentSpace.Core
 {
     public class SceneLoader : MonoBehaviour
     {
+        private readonly List<AsyncOperation> _scenesToLoad = new List<AsyncOperation>();
+
         public GameObject menu;
+        public Button loadButton;
         public GameObject loadingInterface;
         public Image loadingProgressBar;
 
-        private readonly List<AsyncOperation> _scenesToLoad = new List<AsyncOperation>();
-
         public void StartGame()
+        {
+            LoadScenes();
+            PlayerPrefs.SetInt("NewGame", 1);
+            PlayerPrefs.SetInt("LoadGame", 0);
+            //DataPersistenceManager.Instance.NewGame();
+
+        }
+
+        public void LoadGame()
+        {
+            LoadScenes();
+            PlayerPrefs.SetInt("LoadGame", 1);
+            PlayerPrefs.SetInt("NewGame", 0);
+            //DataPersistenceManager.Instance.LoadGame();
+        }
+
+        private void LoadScenes()
         {
             HideMenu();
             ShowLoadingScreen();
@@ -23,6 +44,11 @@ namespace SilentSpace.Core
             StartCoroutine(LoadingScreen());
         }
 
+        private void EnableLoadButton()
+        {
+            loadButton.interactable = true;
+        }
+        
         private void HideMenu()
         {
             menu.SetActive(false);

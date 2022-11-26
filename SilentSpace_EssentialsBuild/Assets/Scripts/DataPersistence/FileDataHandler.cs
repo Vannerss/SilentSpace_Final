@@ -7,19 +7,19 @@ namespace SilentSpace.DataPersistence
 {
     public class FileDataHandler
     {
-        private string dataDirPath = "";
-        private string dataFileName = "";
+        private string _dataDirPath = "";
+        private string _dataFileName = "";
 
 
         public FileDataHandler(string dataDirPath, string dataFileName)
         {
-            this.dataDirPath = dataDirPath;
-            this.dataFileName = dataFileName;
+            this._dataDirPath = dataDirPath;
+            this._dataFileName = dataFileName;
         }
 
         public GameData Load()
         {
-            string fullPath = Path.Combine(dataDirPath, dataFileName);
+            string fullPath = Path.Combine(_dataDirPath, _dataFileName);
             GameData loadedData = null;
             if (File.Exists(fullPath))
             {
@@ -46,7 +46,7 @@ namespace SilentSpace.DataPersistence
 
         public void Save(GameData data)
         {
-            string fullPath = Path.Combine(dataDirPath, dataFileName);
+            string fullPath = Path.Combine(_dataDirPath, _dataFileName);
             try
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(fullPath));

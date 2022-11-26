@@ -16,18 +16,14 @@ namespace SilentSpace.Player.StateMachine.SubStates
             Ctx.Log("Run SubState");
             HandleRun();
             Ctx.Audio.PlayAudio(AudioType.SFX_Player_Run);
-            Ctx.timer = new Timer(5f);
-            Ctx.timer.OnTimerEnd += OnRanMaxTimeReached;
         }
         public override void FixedUpdateState() { }
         public override void UpdateState()
         {
-            Ctx.timer.Tick();
             CheckSwitchStates();
             if (Ctx.playerManager.oxygenLevel <= 0)
             {
                 Ctx.playerManager.oxygenLevel = 0;
-                return;
             }
             else 
             {
@@ -63,12 +59,6 @@ namespace SilentSpace.Player.StateMachine.SubStates
         private void HandleRun()
         {
             Ctx.Speed = Ctx.runSpeed;
-        }
-
-        private void OnRanMaxTimeReached()
-        {
-            Ctx.timer.OnTimerEnd -= OnRanMaxTimeReached;
-            Ctx.RunOnCooldown();
         }
     }
 }

@@ -117,7 +117,7 @@ namespace SilentSpace.Player.StateMachine
 
         private void Run()
         {
-            isRunning = isCrouching != true;
+            isRunning = isRunning != true;
         }
 
         /// <summary>
@@ -128,23 +128,6 @@ namespace SilentSpace.Player.StateMachine
         {
             if (!debug) return;
             print("[PlayerStateMachine]:" + msg);
-        }
-
-        /// <summary>
-        /// Starts run cooldown.
-        /// </summary>
-        public void RunOnCooldown()
-        {
-            timer = new Timer(3f);
-            timer.OnTimerEnd += OnCooldownEnd;
-            inputManager.DisableRunInputs();
-            _onCooldown = true;
-            isRunning = false;
-        }
-
-        private void OnCooldownEnd()
-        {
-            inputManager.EnableRunInputs();
         }
     }
 }

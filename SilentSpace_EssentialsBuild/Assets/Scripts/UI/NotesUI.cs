@@ -17,12 +17,6 @@ namespace SilentSpace.UI
         public Button noteItem3;
         public Button noteItem4;
         public Button noteItem5;
-        public GameObject noteObject1;
-        public GameObject noteObject2;
-        public GameObject noteObject3;
-        public GameObject noteObject4;
-        public GameObject noteObject5;
-        
 
         private void Start()
         {
@@ -43,32 +37,20 @@ namespace SilentSpace.UI
 
         public void LoadData(GameData data)
         {
-            noteItem1.interactable = data.journal.noteItemOne;
-            noteItem2.interactable = data.journal.noteItemTwo;
-            noteItem3.interactable = data.journal.noteItemThree;
-            noteItem4.interactable = data.journal.noteItemFour;
-            noteItem5.interactable = data.journal.noteItemFive;
-            
-            noteObject1.SetActive(data.scene.noteItemOne);
-            noteObject2.SetActive(data.scene.noteItemTwo);
-            noteObject3.SetActive(data.scene.noteItemThree);
-            noteObject4.SetActive(data.scene.noteItemFour);
-            noteObject5.SetActive(data.scene.noteItemFive);
+            noteItem1.interactable = data.noteItemButtonOne;
+            noteItem2.interactable = data.noteItemButtonTwo;
+            noteItem3.interactable = data.noteItemButtonThree;
+            noteItem4.interactable = data.noteItemButtonFour;
+            noteItem5.interactable = data.noteItemButtonFive;
         }
 
         public void SaveData(ref GameData data)
         {                                    
-            data.journal.noteItemOne   = noteItem1.interactable;
-            data.journal.noteItemTwo   = noteItem2.interactable;
-            data.journal.noteItemThree = noteItem3.interactable;
-            data.journal.noteItemFour  = noteItem4.interactable;
-            data.journal.noteItemFive  = noteItem5.interactable;
-
-            data.scene.noteItemOne = noteObject1.activeSelf;
-            data.scene.noteItemTwo = noteObject2.activeSelf;
-            data.scene.noteItemThree = noteObject3.activeSelf;
-            data.scene.noteItemFour = noteObject4.activeSelf;
-            data.scene.noteItemFive = noteObject5.activeSelf;
+            data.noteItemButtonOne = noteItem1.interactable;
+            data.noteItemButtonTwo = noteItem2.interactable;
+            data.noteItemButtonThree = noteItem3.interactable;
+            data.noteItemButtonFour = noteItem4.interactable;
+            data.noteItemButtonFive = noteItem5.interactable;
         }
     }
 }
