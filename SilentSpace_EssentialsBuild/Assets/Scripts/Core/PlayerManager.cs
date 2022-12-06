@@ -23,9 +23,8 @@ namespace SilentSpace.Core
         [Range(0.0f, 1.0f)] public float xSensitivity;
         public GameObject player;
         public Transform spawnPoint;
-        private Timer _timer;
-        
-        
+
+
         public event Action OnPlayerDeath;
         public event Action OnPlayerOxygenRanOut;
         public event Action OnPlayerOxygenRefilled;
@@ -48,12 +47,11 @@ namespace SilentSpace.Core
             }
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             SetOxygen(oxygenLevel + 0.1f);
-            
-            if(_timer.RemainingSeconds > 0f) _timer.Tick();
         }
+
 
         public float GetHp()
         {
