@@ -21,21 +21,71 @@ namespace SilentSpace.Core
         private InputAction _openPause;
         private InputAction _openJournal;
         private InputAction _openMap;
+        
 
+        //Declaration Syntax On Other Scripts: _inputManager.EventName += ReceiverMethodName;
+        //Check PlayerStateMachine.cs for usage example.
         #region C# Events
-
+        
+        /// <summary>
+        /// Gets invoke when player just pressed the run input.
+        /// </summary>
         public event Action OnRunStarted;
+        
+        /// <summary>
+        /// Gets invoke when player is holding the run input.
+        /// </summary>
         public event Action OnRunHold;
+        
+        /// <summary>
+        /// Gets invoke as soon as player lets go of the run input.
+        /// </summary>
         public event Action OnRunCanceled;
+        
+        /// <summary>
+        /// Gets invoke when player just pressed the crouch input.
+        /// </summary>
         public event Action OnCrouchStarted;
+        
+        /// <summary>
+        /// Gets invoke when player is holding the crouch input.
+        /// </summary>
         public event Action OnCrouchHold;
+        
+        /// <summary>
+        /// Gets invoke as soon as player lets go of the run input.
+        /// </summary>
         public event Action OnCrouchCanceled;
+        
+        /// <summary>
+        /// Gets invoke when player just pressed the interact input.
+        /// </summary>
         public event Action OnInteractStarted;
+        
+        /// <summary>
+        /// Gets invoke when player is holding the interact input.
+        /// </summary>
         public event Action OnInteractHold;
+        
+        /// <summary>
+        /// Gets invoke as soon as player lets go of the interact input.
+        /// </summary>
         public event Action OnInteractCanceled;
-        public event Action OnOpenPause;
-        public event Action OnOpenJournal;
-        public event Action OnOpenMap;
+        
+        /// <summary>
+        /// Gets invoke when player presses the pause input.
+        /// </summary>
+        public event Action OnPause;
+        
+        /// <summary>
+        ///  Gets invoke when player presses the journal input.
+        /// </summary>
+        public event Action OnJournal;
+        
+        /// <summary>
+        ///  Gets invoke when player presses the map input.
+        /// </summary>
+        public event Action OnMap;
 
         #endregion
 
@@ -90,18 +140,18 @@ namespace SilentSpace.Core
             _interact.Enable();
 
             _openPause = _playerInputActions.PlayerControls.OpenPause;
-            _openPause.performed += OnPause;
+            _openPause.performed += OnPausePressed;
             _openPause.Enable();
 
             _openJournal = _playerInputActions.PlayerControls.OpenJournal;
-            _openJournal.performed += OnJournal;
+            _openJournal.performed += OnJournalPressed;
             _openJournal.Enable();
 
             _openMap = _playerInputActions.PlayerControls.OpenMap;
-            _openMap.started += OnMap;
+            _openMap.started += OnMapPressed;
             _openMap.Enable();
         }
-
+        
         private void OnDisable()
         {
             /*
@@ -138,7 +188,6 @@ namespace SilentSpace.Core
         /// Returns Vector2 WASD movement.
         /// </summary>
         /// <returns></returns>
-        
         public Vector2 GetMovement()
         {
             return _movement.ReadValue<Vector2>();
@@ -148,7 +197,6 @@ namespace SilentSpace.Core
         /// Returns Vector2 mouse movement.
         /// </summary>
         /// <returns></returns>
-        
         public Vector2 GetMouseMovement()
         {
             return _mouseMovement.ReadValue<Vector2>();
@@ -229,19 +277,19 @@ namespace SilentSpace.Core
         *
         */
 
-        private void OnPause(InputAction.CallbackContext context)
+        private void OnPausePressed(InputAction.CallbackContext context)
         {
-            OnOpenPause?.Invoke(); //Sends when press.
+            OnPause?.Invoke(); //Sends when press.
         }
 
-        private void OnJournal(InputAction.CallbackContext context)
+        private void OnJournalPressed(InputAction.CallbackContext context)
         {
-            OnOpenJournal?.Invoke(); //Sends when press.
+            OnJournal?.Invoke(); //Sends when press.
         }
-
-        private void OnMap(InputAction.CallbackContext context)
+        
+        private void OnMapPressed(InputAction.CallbackContext context)
         {
-            OnOpenMap?.Invoke(); //Sends when press.
+            OnMap?.Invoke(); //Sends when press.
         }
         #endregion
 

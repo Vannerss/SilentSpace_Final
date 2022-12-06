@@ -15,9 +15,25 @@ namespace SilentSpace.Player.Handlers
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Hitbox")) return;
+            
+            var r = Random.Range(0, 20);
             var damage = _playerManager.GetHp() - 21; //replace the 21 with ENEMYMANAGAER.GETDMG();
             _playerManager.SetHp(damage);
+            CheckForBrokenSuit(r);
+            
             print("TookDmg");
+        }
+        
+        private void CheckForBrokenSuit(int num)
+        {
+            switch (num)
+            {
+                case 1:
+                case 2:
+                case 3:
+                    _playerManager.SuitBroke();
+                    break;
+            }
         }
     }
 }

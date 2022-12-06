@@ -21,41 +21,33 @@ namespace SilentSpace.Player.StateMachine.SubStates
         public override void UpdateState()
         {
             CheckSwitchStates();
-            if (Ctx.playerManager.oxygenLevel <= 0)
-            {
-                Ctx.playerManager.oxygenLevel = 0;
-            }
-            else 
-            {
-                Ctx.playerManager.oxygenLevel -= 0.1f;
-            }
+            Ctx.playerManager.SetOxygen(Ctx.playerManager.GetOxygen() - 0.5f);
         }
         public override void ExitState()
         {
             Ctx.Log("Exited Run SubState");
             Ctx.Audio.StopAudio(AudioType.SFX_Player_Run);
         }
+        
         public override void InitializeSubstate() { }
+        
         public override void CheckSwitchStates()
         {
             if (!Ctx.IsRunningPressed && !Ctx.IsCrouchingPressed)
             {
                 SwitchState(Factory.Walk());
-            }
-            if (Ctx.IsCrouchingPressed && Ctx.MoveInput.magnitude <= 0f)
+            } else if (Ctx.IsCrouchingPressed && Ctx.MoveInput.magnitude <= 0f)
             {
                 SwitchState(Factory.Crouch());
-            }        
-            if (Ctx.IsCrouchingPressed && Ctx.MoveInput.magnitude >= 0.1f)
+            } else if (Ctx.IsCrouchingPressed && Ctx.MoveInput.magnitude >= 0.1f)
             {
                 SwitchState(Factory.CrouchWalk());
-            }
-            if (!Ctx.IsCrouchingPressed && Ctx.MoveInput.magnitude <= 0.1f)
+            } else if (!Ctx.IsCrouchingPressed && Ctx.MoveInput.magnitude <= 0.1f)
             {
                 SwitchState(Factory.Empty());
             }
         }
-
+        
         private void HandleRun()
         {
             Ctx.Speed = Ctx.runSpeed;

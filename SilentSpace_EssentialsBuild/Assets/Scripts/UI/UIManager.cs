@@ -27,17 +27,17 @@ namespace SilentSpace.UI
             _audioController = AudioController.Instance;
             
             _inputManager = InputManager.Instance;
-            _inputManager.OnOpenPause += OpenSettingsMenu;
-            _inputManager.OnOpenJournal += OpenJournalMenu;
-            _inputManager.OnOpenMap += OpenMapMenu;
+            _inputManager.OnPause += SettingsMenu;
+            _inputManager.OnJournal += JournalMenu;
+            _inputManager.OnMap += MapMenu;
 
             _onStart = false;
             
             _playerManager = PlayerManager.Instance;
             _playerManager.OnPlayerDeath += OpenDeathMenu;
         }
-
-        public void OpenSettingsMenu()
+        
+        public void SettingsMenu()
         {
             if (!settingsUI.activeSelf)
             {
@@ -53,7 +53,7 @@ namespace SilentSpace.UI
             }
         }
 
-        private void OpenJournalMenu()
+        private void JournalMenu()
         {
             if (settingsUI.activeSelf) return;
             
@@ -76,7 +76,7 @@ namespace SilentSpace.UI
             notesUI.SetActive(false);
         }
 
-        public void OpenMapMenu()
+        public void MapMenu()
         {
             if (settingsUI.activeSelf) return;
             if (!mapUI.activeSelf)

@@ -1,8 +1,7 @@
 using System;
-using System.Collections;
-using JetBrains.Annotations;
 using SilentSpace.DataPersistence;
 using SilentSpace.DataPersistence.Data;
+using SilentSpace.Helpers;
 using UnityEngine;
 
 namespace SilentSpace.Core
@@ -10,28 +9,33 @@ namespace SilentSpace.Core
     public class PlayerManager : MonoBehaviour, IDataPersistence
     {
         public static PlayerManager Instance;
-        
-        public float health = 100;
-        public float oxygenLevel = 100;
-        
+
         private string _currentState;
         private string _currentSubState;
-
+        
+        public float health = 100f;
+        public float oxygenLevel = 100f;
+        public int maxOxygenLevel = 100;
+        public bool isSuitDamaged = false;
         public int totalKeyItems;
         public int totalNoteItems;
-        
         [Range(0.0f, 1.0f)] public float ySensitivity;
         [Range(0.0f, 1.0f)] public float xSensitivity;
         public GameObject player;
         public Transform spawnPoint;
+        private Timer _timer;
+        
         
         public event Action OnPlayerDeath;
+        public event Action OnPlayerOxygenRanOut;
+        public event Action OnPlayerOxygenRefilled;
         
         
         public Vector3 Position => player != null ? player.transform.position : Vector3.zero;
         public float Oxygen { get => oxygenLevel; set => oxygenLevel = value; }
         public string CurrentSubState { get => _currentState; set => _currentState = value; }
-
+        
+        
         private void Awake()
         {
             if(Instance == null)
@@ -46,10 +50,9 @@ namespace SilentSpace.Core
 
         private void Update()
         {
-            if (oxygenLevel <= 0f)
-            {
-                SetHp(health - 0.10f);
-            }
+            SetOxygen(oxygenLevel + 0.1f);
+            
+            if(_timer.RemainingSeconds > 0f) _timer.Tick();
         }
 
         public float GetHp()
@@ -65,17 +68,69 @@ namespace SilentSpace.Core
         public void SetHp(float value)
         {
             health = value;
-            if(health <= 0)
+            if (health <= 0)
             {
                 health = 0;
                 OnPlayerDeath?.Invoke();
             }
-            if(health > 100)
+
+            if (health > 100)
             {
                 health = 100;
             }
         }
 
+        public void SetOxygen(float value)
+        {
+            if (value > maxOxygenLevel)
+            {
+                oxygenLevel = maxOxygenLevel;
+                OnPlayerOxygenRefilled?.Invoke();
+            }
+            else if (value <= 0)
+            {
+                oxygenLevel = 0;
+                OnPlayerOxygenRanOut?.Invoke();
+            }
+            else
+            {
+                oxygenLevel = value;
+            }
+        }
+
+        public void SuitBroke()
+        {
+            isSuitDamaged = true;
+            maxOxygenLevel -= 25;
+            if (maxOxygenLevel <= 25)
+            {
+                maxOxygenLevel = 25;
+            }
+
+            if (oxygenLevel > maxOxygenLevel)
+            {
+                SetOxygen(maxOxygenLevel);
+            }
+        }
+
+        public void PartialSuitFix()
+        {
+            if (maxOxygenLevel != 100)
+            {
+                maxOxygenLevel += 25;
+            }
+            else
+            {
+                isSuitDamaged = false;
+            }
+        }
+
+        public void FullSuitFix()
+        {
+            maxOxygenLevel = 100;
+            isSuitDamaged = false;
+        }
+        
         #region Load & Save
         public void LoadData(GameData data)
         {

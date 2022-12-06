@@ -20,7 +20,6 @@ namespace SilentSpace.Player.StateMachine
         private float _playerHeight = 1f;
         private float _speed;
         private float _startYScale;
-        private bool _onCooldown;
 
         public Timer timer;
         public PlayerManager playerManager;
@@ -79,6 +78,8 @@ namespace SilentSpace.Player.StateMachine
         void Start()
         {
             playerManager = PlayerManager.Instance;
+            playerManager.OnPlayerOxygenRefilled += OxygenRecovered;
+            playerManager.OnPlayerOxygenRanOut += OxygenRanOut;
 
             inputManager = InputManager.Instance;
             inputManager.OnCrouchHold += Crouch;
@@ -100,14 +101,18 @@ namespace SilentSpace.Player.StateMachine
         }
         private void Update()
         {
-            if(_onCooldown) timer.Tick();
-            
             moveInput.x = inputManager.GetMovement().x;
             moveInput.y = inputManager.GetMovement().y;
 
             playerManager.CurrentSubState = currentSubStateName;
 
             _currentState.UpdateStates();
+
+            if (playerManager.GetOxygen() <= 0)
+            {
+                inputManager.DisableRunInputs();
+                isRunning = false;
+            }
         }
 
         private void Crouch()
@@ -120,6 +125,17 @@ namespace SilentSpace.Player.StateMachine
             isRunning = isRunning != true;
         }
 
+        private void OxygenRanOut()
+        {
+            inputManager.DisableRunInputs();
+            isRunning = false;
+        }
+
+        private void OxygenRecovered()
+        {
+            inputManager.EnableRunInputs();
+        }
+    
         /// <summary>
         /// Custom debug.log can be disable in inspector by setting debug to false.
         /// </summary>

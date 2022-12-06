@@ -7,7 +7,9 @@ namespace SilentSpace.UI.MainMenu
     public class LoadButtonDisabler : MonoBehaviour
     {
         private DataPersistenceManager _dataPersistenceManager;
+        
         public Button loadGameButton;
+
         private void Start()
         {
             _dataPersistenceManager = DataPersistenceManager.Instance;

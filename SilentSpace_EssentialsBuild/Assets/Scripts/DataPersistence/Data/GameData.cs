@@ -5,6 +5,8 @@ namespace SilentSpace.DataPersistence.Data
     [System.Serializable]
     public class GameData
     {
+        #region DATA
+        
         public float playerHp;
         public float playerOxygen;
         public int playerKeyItems;
@@ -39,6 +41,7 @@ namespace SilentSpace.DataPersistence.Data
         public bool noteItemObjectFour;
         public bool noteItemObjectFive;
         
+        #endregion
         
         public GameData()
         {
@@ -60,7 +63,7 @@ namespace SilentSpace.DataPersistence.Data
             this.keyItemButtonThree = true;
             this.keyItemButtonFour = true;
             this.keyItemButtonFive = true;
-
+            
             this.noteItemButtonOne = false;
             this.noteItemButtonTwo = false;
             this.noteItemButtonThree = false;
