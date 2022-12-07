@@ -16,7 +16,6 @@ namespace SilentSpace.Alien.Handlers
         public void EnableHitbox()
         {
             hitbox.SetActive(true);
-            print("It Enabled");
         }
 
         /// <summary>
@@ -25,7 +24,6 @@ namespace SilentSpace.Alien.Handlers
         public void DisableHitbox()
         {
             hitbox.SetActive(false);
-            print("It Disabled");
         }
     }
 }

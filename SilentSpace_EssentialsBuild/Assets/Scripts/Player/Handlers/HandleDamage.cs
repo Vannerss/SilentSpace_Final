@@ -19,7 +19,8 @@ namespace SilentSpace.Player.Handlers
             var r = Random.Range(0, 20);
             var damage = _playerManager.GetHp() - 21; //replace the 21 with ENEMYMANAGAER.GETDMG();
             _playerManager.SetHp(damage);
-            CheckForBrokenSuit(r);
+            //CheckForBrokenSuit(r);
+            _playerManager.SuitBroke();
             
             print("TookDmg");
         }
@@ -31,6 +32,12 @@ namespace SilentSpace.Player.Handlers
                 case 1:
                 case 2:
                 case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 10:
                     _playerManager.SuitBroke();
                     break;
             }

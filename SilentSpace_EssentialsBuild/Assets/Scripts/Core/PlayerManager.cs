@@ -71,11 +71,12 @@ namespace SilentSpace.Core
                 health = 0;
                 OnPlayerDeath?.Invoke();
             }
-
-            if (health > 100)
-            {
-                health = 100;
-            }
+            
+            //TODO: Uncomment this piece of code.
+            // if (health > 100)
+            // {
+            //     health = 100;
+            // }
         }
 
         public void SetOxygen(float value)
@@ -109,6 +110,7 @@ namespace SilentSpace.Core
             {
                 SetOxygen(maxOxygenLevel);
             }
+            Debug.Log(maxOxygenLevel);
         }
 
         public void PartialSuitFix()
@@ -125,6 +127,7 @@ namespace SilentSpace.Core
 
         public void FullSuitFix()
         {
+            Debug.Log("Full Fix");
             maxOxygenLevel = 100;
             isSuitDamaged = false;
         }
