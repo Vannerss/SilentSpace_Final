@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SilentSpace.Player.Camera
+namespace SilentSpace.Player.CharacterCamera
 {
     public class MoveCamera : MonoBehaviour
     {
