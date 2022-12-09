@@ -12,15 +12,28 @@ namespace SilentSpace
         public Transform eyes;
 
         private NavMeshAgent nav;
-        private string state = "idle";
+        //private string state = "idle";
         private bool alive = true;
         private float wait = 0f;
         private bool highAlert = false;
-        private float alertness = 20f;
+        private float alertness = 40f;
         //private Timer timer;
+
+        public enum States
+        {
+            walk,
+            search,
+            idle,
+            chase,
+            hunt,
+            kill
+        }
+
+        private States states;
 
         void Start()
         {
+            states = States.idle;
             nav = GetComponent<NavMeshAgent>();
             nav.speed = 4f;
             //timer = new Timer();
@@ -31,21 +44,16 @@ namespace SilentSpace
         //Check if player is visible
         public void checkSight()
         {
-            if (alive)
+            RaycastHit rayHit;
+
+            if (Physics.Linecast(eyes.position, player.transform.position, out rayHit))
             {
-                RaycastHit rayHit;
-
-                if (Physics.Linecast(eyes.position, player.transform.position, out rayHit))
+                if (rayHit.collider.gameObject.name == "Body")
                 {
-                    //print("hit " + rayHit.collider.gameObject.name);
-
-                    if (rayHit.collider.gameObject.name == "Body")
+                    if (states != States.kill)
                     {
-                        if (state != "kill")
-                        {
-                            state = "chase";
-                            nav.speed = 5f;
-                        }
+                        states = States.chase;
+                        nav.speed = 5f;
                     }
                 }
             }
@@ -53,9 +61,38 @@ namespace SilentSpace
 
         void Update()
         {
-            //Debug.DrawLine(eyes.position, player.transform.position, Color.green);
 
-            if (alive)
+            switch (states)
+            {
+                case States.idle:
+                    {
+                        Idle(States.idle);
+                        break;
+                    }
+                case States.walk:
+                    {
+                        //Walk(States.walk);
+                        break;
+                    }
+                case States.chase:
+                    {
+                        //Chase(States.chase);
+                        break;
+                    }
+                case States.search:
+                    {
+                        //Search(States.search);
+                        break;
+                    }
+                case States.hunt:
+                    {
+                        //Hunt(States.hunt);
+                        break;
+                    }
+            }
+
+
+            /*if (alive)
             {
                 //IDLE
                 if (state == "idle")
@@ -100,7 +137,7 @@ namespace SilentSpace
                     if (wait > 0f)
                     {
                         wait -= Time.deltaTime;
-                        transform.Rotate(0f, 90f * Time.deltaTime, 0f);
+                        //transform.Rotate(0f, 90f * Time.deltaTime, 0f);
                     }
                     else
                     {
@@ -136,8 +173,97 @@ namespace SilentSpace
                         checkSight();
                     }
                 }
-            }
+            }*/
             //nav.SetDestination(player.transform.position);
+        }
+
+        public void Idle(States state)
+        {
+            if (state == States.idle)
+            {
+                //Pick random place to walk
+                Vector3 randomPos = Random.insideUnitSphere * alertness;
+                NavMesh.SamplePosition(transform.position + randomPos, out NavMeshHit navHit, 1000f, NavMesh.AllAreas);
+
+                //Go near player cuz high alert
+                if (highAlert)
+                {
+                    NavMesh.SamplePosition(player.transform.position + randomPos, out navHit, 1000f, NavMesh.AllAreas);
+
+                    //It will lose awereness of the player general position
+                    alertness += 10f;
+
+                    if (alertness > 40f)
+                    {
+                        highAlert = false;
+                        nav.speed = 4f;
+                    }
+                }
+
+                nav.SetDestination(navHit.position);
+                state = States.walk;
+            }
+            Debug.Log("Spam");
+        }
+
+        public void Walk(States state)
+        {
+            if (state == States.walk)
+            {
+                if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
+                {
+                    state = States.search;
+                    wait = 5f;
+                }
+            }
+        }
+
+        public void Search(States state)
+        {
+            if (state == States.search)
+            {
+                if (wait > 0f)
+                {
+                    wait -= Time.deltaTime;
+                    //transform.Rotate(0f, 90f * Time.deltaTime, 0f);
+                }
+                else
+                {
+                    state = States.idle;
+                }
+            }
+        }
+
+        public void Chase(States state)
+        {
+            if (state == States.chase)
+            {
+                nav.speed = 6f;
+                nav.destination = player.transform.position;
+
+                //Lose sight of player
+                float distance = Vector3.Distance(transform.position, player.transform.position);
+
+                if (distance > 30f)
+                {
+                    state = States.hunt;
+                }
+            }
+        }
+
+        public void Hunt(States state)
+        {
+            if (state == States.hunt)
+            {
+                if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
+                {
+                    state = States.search;
+                    wait = 2f;
+                    highAlert = true;
+                    alertness = 5f;
+                    checkSight();
+                }
+            }
         }
     }
 }
