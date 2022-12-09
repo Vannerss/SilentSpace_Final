@@ -6,9 +6,14 @@ using SilentSpace.Helpers;
 
 namespace SilentSpace
 {
+    //TODO: Change States to Enum based.
+    //TODO: Change if statements for Switch statements.
+    //TODO: Encapsulate logic into methods.
+    
     public class monster : MonoBehaviour
     {
         public GameObject player;
+        public Animator anim;
         public Transform eyes;
 
         private NavMeshAgent nav;
@@ -55,7 +60,7 @@ namespace SilentSpace
         {
             //Debug.DrawLine(eyes.position, player.transform.position, Color.green);
 
-            if (alive)
+            if (alive) //TODO: remove this
             {
                 //IDLE
                 if (state == "idle")
@@ -87,11 +92,12 @@ namespace SilentSpace
                 //WALK
                 if (state == "walk")
                 {
-                    if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
-                    {
-                        state = "search";
-                        wait = 5f;
-                    }
+                     //anim.SetTrigger("Walk");
+                     if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
+                     {
+                         state = "search";
+                         wait = 5f;
+                     }
                 }
 
                 //SEARCH
@@ -111,8 +117,8 @@ namespace SilentSpace
                 //CHASE
                 if (state == "chase")
                 {
-                    nav.speed = 6f;
-                    nav.destination = player.transform.position;
+                    ChasePlayer(); //Encapsulation Example.
+                    
                     //nav.SetDestination(player.transform.position); 
 
                     //Lose sight of player
@@ -138,6 +144,12 @@ namespace SilentSpace
                 }
             }
             //nav.SetDestination(player.transform.position);
+        }
+
+        private void ChasePlayer()
+        {
+            nav.speed = 6f;
+            nav.destination = player.transform.position;
         }
     }
 }

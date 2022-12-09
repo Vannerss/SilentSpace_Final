@@ -1,55 +1,37 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using SilentSpace.Core;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace SilentSpace.Player.interaction
 {
     public class Interactor : MonoBehaviour
-    {            
-
-        [SerializeField] private Transform _interactionPoint;
-        [SerializeField] private float _interactionPointRadius = 0.5f;
-        [SerializeField] private LayerMask _interactableMask;
-        [SerializeField] private PromptUi _promptUi;
-
-        private readonly Collider[] _colliders = new Collider [3];
-        [SerializeField] private int _numFound;
-
+    {
         private IInteractable _interactable;
-
-
-        private void Update()
-        {
-            _numFound = Physics.OverlapSphereNonAlloc(_interactionPoint.position, _interactionPointRadius, _colliders,
-                _interactableMask);
-
-            if (_numFound > 0)
-            {
-              
-                 _interactable = _colliders[0].GetComponent<IInteractable>();
-                if (_interactable != null)
-                {
-                    if(!_promptUi.IsDisplayed) _promptUi.SetUp(_interactable.InteractionPrompt);
-
-                    if (Keyboard.current.eKey.wasPressedThisFrame) _interactable.Interact(this); //todo: refactor to new input system
-                }                                             
-            }
-
-            else
-            {
-                if (_interactable != null) _interactable = null;
-                if(_promptUi.IsDisplayed) _promptUi.Close();
-
-            }
-        }
+        private InputManager _inputManager;
+        public Transform camTransform;
+        
+        public LayerMask interactableMask;
+        public float interactionMaxDistance;
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(_interactionPoint.position,_interactionPointRadius);
+            Gizmos.DrawRay(camTransform.position, camTransform.forward);
+        }
+        private void Start()
+        {
+            _inputManager = InputManager.Instance;
+            _inputManager.OnInteractStarted += Ray;
+        }
+
+        private void Ray()
+        {
+            var ray = new Ray(camTransform.position, camTransform.forward);
             
+            if (Physics.Raycast(ray, out var hit, interactionMaxDistance, interactableMask))
+            {
+                _interactable = hit.collider.GetComponent<IInteractable>();
+                _interactable.Interact(this);
+            }
         }
     }
 }

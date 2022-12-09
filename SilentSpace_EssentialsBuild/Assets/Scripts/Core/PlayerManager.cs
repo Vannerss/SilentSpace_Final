@@ -2,6 +2,7 @@ using System;
 using SilentSpace.DataPersistence;
 using SilentSpace.DataPersistence.Data;
 using SilentSpace.Helpers;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SilentSpace.Core
@@ -72,11 +73,10 @@ namespace SilentSpace.Core
                 OnPlayerDeath?.Invoke();
             }
             
-            //TODO: Uncomment this piece of code.
-            // if (health > 100)
-            // {
-            //     health = 100;
-            // }
+            if (health > 100)
+            {
+                health = 100;
+            }
         }
 
         public void SetOxygen(float value)
