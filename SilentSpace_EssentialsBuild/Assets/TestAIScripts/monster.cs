@@ -12,89 +12,60 @@ namespace SilentSpace
         public GameObject player;
         public Transform eyes;
 
-        private NavMeshAgent nav;
-        //private string state = "idle";
-        private bool alive = true;
-        private float wait = 0f;
         private bool highAlert = false;
+        private bool stopAndGo = false;
         private float alertness = 40f;
-
+        private NavMeshAgent nav;
         private AudioController _audioController;
         private Animator _animator;
+        private States states;
+        private Vector3 randomPos;
+        private NavMeshHit navHit;
+
         //private Timer timer;
 
         public enum States
         {
-            walk,
-            search,
-            idle,
+            roaming,
             chase,
             hunt,
-            kill
-        }
-
-        private States state;
+            attack
+        }    
 
         void Start()
         {
-            state = States.idle;
+            states = States.roaming;
             nav = GetComponent<NavMeshAgent>();
-            nav.speed = 4f;
+            nav.speed = 5f;
             //timer = new Timer();
             //timer.RemainingSeconds;
             //timer.Tick();
         }
 
-        //Check if player is visible
-        public void checkSight()
-        {
-            RaycastHit rayHit;
-
-            if (Physics.Linecast(eyes.position, player.transform.position, out rayHit))
-            {
-                if (rayHit.collider.gameObject.name == "Body")
-                {
-                    if (state != States.kill)
-                    {
-                        state = States.chase;
-                        nav.speed = 5f;
-                    }
-                }
-            }
-        }
-
         void Update()
         {
-            
-            switch (state)
+            switch (states)
             {
-                case States.idle:
+                case States.roaming:
                     {
-                        Idle();
-                        break;
-                    }
-                case States.walk:
-                    {
-                        Walk();
+                        Roaming();
                         break;
                     }
                 case States.chase:
                     {
-                        //Chase();
-                        break;
-                    }
-                case States.search:
-                    {
-                        //Search();
+                        Chase();
                         break;
                     }
                 case States.hunt:
                     {
-                        //Hunt();
+                        Hunt();
+                        break;
+                    }
+                case States.attack:
+                    {
                         break;
                     }
             }
-
 #region hide me
 /*if (alive)
 {
@@ -182,61 +153,55 @@ namespace SilentSpace
             #endregion
         }
 
-        //TODO: Make a roaming state that does Idle and Walk.
-        private void Idle()
+        //Check if player is visible
+        public void checkSight()
         {
-            //Pick random place to walk
-            Vector3 randomPos = Random.insideUnitSphere * alertness;
-            NavMesh.SamplePosition(transform.position + randomPos, out NavMeshHit navHit, 1000f, NavMesh.AllAreas);
+            RaycastHit rayHit;
 
-            //Go near player cuz high alert
-            if (highAlert)
+            if (Physics.Linecast(eyes.position, player.transform.position, out rayHit))
             {
-                NavMesh.SamplePosition(player.transform.position + randomPos, out navHit, 1000f, NavMesh.AllAreas);
-
-                //It will lose awereness of the player general position
-                alertness += 10f;
-
-                if (alertness > 40f)
+                if (rayHit.collider.gameObject.name == "Body")
                 {
-                    highAlert = false;
-                    nav.speed = 4f;
+                    if (states != States.attack)
+                    {
+                        states = States.chase;
+                    }
                 }
-            }
-
-            nav.SetDestination(navHit.position);
-            state = States.walk;
-            //Debug.Log("Spam");
-        }
-
-        private void Walk()
-        {
-            if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
-            {
-                state = States.idle;
-                wait = 5f;
             }
         }
 
-        public void Search()
+        private void Roaming()
         {
-            if (state == States.search)
+            if (stopAndGo == false)
             {
-                if (wait > 0f)
+                randomPos = Random.insideUnitSphere * alertness;
+                NavMesh.SamplePosition(transform.position + randomPos, out navHit, 5000f, NavMesh.AllAreas);
+
+                if (highAlert == true)
                 {
-                    wait -= Time.deltaTime;
-                    //transform.Rotate(0f, 90f * Time.deltaTime, 0f);
+                    NavMesh.SamplePosition(player.transform.position + randomPos, out navHit, 5000f, NavMesh.AllAreas);
+
+                    //It will lose awereness of the player general position
+                    alertness += 10f;
+
+                    if (alertness > 40f)
+                    {
+                        highAlert = false;
+                        nav.speed = 5f;
+                    }
                 }
-                else
-                {
-                    state = States.idle;
-                }
+                nav.SetDestination(navHit.position);
+                stopAndGo = true;
+            }
+            else if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending && stopAndGo == true)
+            {
+                stopAndGo = false;
             }
         }
 
         public void Chase()
         {
-            nav.speed = 6f;
+            nav.speed = 7f;
             nav.destination = player.transform.position;
 
             //Lose sight of player
@@ -244,7 +209,7 @@ namespace SilentSpace
 
             if (distance > 30f)
             {
-                state = States.hunt;
+                states = States.hunt;
             }
         }
 
@@ -252,8 +217,7 @@ namespace SilentSpace
         {
             if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
             {
-                state = States.search;
-                wait = 2f;
+                states = States.roaming;
                 highAlert = true;
                 alertness = 5f;
                 checkSight();

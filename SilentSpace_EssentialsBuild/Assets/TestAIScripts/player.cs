@@ -6,7 +6,7 @@ namespace SilentSpace
 {
     public class player : MonoBehaviour
     {
-        public bool alive = true;
+        //public bool alive = true;
 
         void OnTriggerEnter(Collider other)
         {
