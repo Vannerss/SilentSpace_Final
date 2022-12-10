@@ -10,19 +10,19 @@ namespace SilentSpace.Player.interaction
         public string InteractionPrompt => _prompt;
 
         
-        public bool Interact(Interactor interactor)
+        public void Interact(Interactor interactor)
         {
             var inventory = interactor.GetComponent<Inventory>();
 
-            if (inventory == null) return false; 
+            if (inventory == null) return ; 
             if (inventory.HasKey)
             {
                 Debug.Log("Opening door!");   
-                return true; 
+                
             }
 
             Debug.Log("No key found");
-            return false;
+          
 
         }
     }

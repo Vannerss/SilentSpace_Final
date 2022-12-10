@@ -8,7 +8,7 @@ namespace SilentSpace.Player.interaction
     {
         public string InteractionPrompt {  get; }
 
-        public bool Interact(Interactor interactor);
+        public void Interact(Interactor interactor);
     }
 } 
               

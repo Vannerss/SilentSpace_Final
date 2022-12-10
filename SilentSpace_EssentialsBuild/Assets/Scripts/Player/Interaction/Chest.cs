@@ -11,10 +11,10 @@ namespace SilentSpace.Player.interaction
         public string InteractionPrompt => _prompt;
 
       
-        public bool Interact(Interactor interactor)
+        public void Interact(Interactor interactor)
         {
             Debug.Log("Opening chest!");
-            return true;
+           
         }
     }
 }
