@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using SilentSpace.Audio;
 using UnityEngine;
 using UnityEngine.AI;
 using SilentSpace.Helpers;
@@ -17,6 +18,9 @@ namespace SilentSpace
         private float wait = 0f;
         private bool highAlert = false;
         private float alertness = 40f;
+
+        private AudioController _audioController;
+        private Animator _animator;
         //private Timer timer;
 
         public enum States
@@ -29,11 +33,11 @@ namespace SilentSpace
             kill
         }
 
-        private States states;
+        private States state;
 
         void Start()
         {
-            states = States.idle;
+            state = States.idle;
             nav = GetComponent<NavMeshAgent>();
             nav.speed = 4f;
             //timer = new Timer();
@@ -50,9 +54,9 @@ namespace SilentSpace
             {
                 if (rayHit.collider.gameObject.name == "Body")
                 {
-                    if (states != States.kill)
+                    if (state != States.kill)
                     {
-                        states = States.chase;
+                        state = States.chase;
                         nav.speed = 5f;
                     }
                 }
@@ -61,164 +65,160 @@ namespace SilentSpace
 
         void Update()
         {
-
-            switch (states)
+            
+            switch (state)
             {
                 case States.idle:
                     {
-                        Idle(States.idle);
+                        Idle();
                         break;
                     }
                 case States.walk:
                     {
-                        //Walk(States.walk);
+                        Walk();
                         break;
                     }
                 case States.chase:
                     {
-                        //Chase(States.chase);
+                        //Chase();
                         break;
                     }
                 case States.search:
                     {
-                        //Search(States.search);
+                        //Search();
                         break;
                     }
                 case States.hunt:
                     {
-                        //Hunt(States.hunt);
+                        //Hunt();
                         break;
                     }
             }
 
+#region hide me
+/*if (alive)
+{
+    //IDLE
+    if (state == "idle")
+    {
+        //Pick random place to walk
+        Vector3 randomPos = Random.insideUnitSphere * alertness;
+        NavMeshHit navHit;
+        NavMesh.SamplePosition(transform.position + randomPos, out navHit, 100f, NavMesh.AllAreas);
 
-            /*if (alive)
+        //Go near player cuz high alert
+        if (highAlert)
+        {
+            NavMesh.SamplePosition(player.transform.position + randomPos, out navHit, 100f, NavMesh.AllAreas);
+
+            //It will lose awereness of the player general position
+            alertness += 5f;
+
+            if (alertness > 20f)
             {
-                //IDLE
-                if (state == "idle")
-                {
-                    //Pick random place to walk
-                    Vector3 randomPos = Random.insideUnitSphere * alertness;
-                    NavMeshHit navHit;
-                    NavMesh.SamplePosition(transform.position + randomPos, out navHit, 100f, NavMesh.AllAreas);
+                highAlert = false;
+                nav.speed = 4f;
+            }
+        }
 
-                    //Go near player cuz high alert
-                    if (highAlert)
-                    {
-                        NavMesh.SamplePosition(player.transform.position + randomPos, out navHit, 100f, NavMesh.AllAreas);
+        nav.SetDestination(navHit.position);
+        state = "walk";
+    }
 
-                        //It will lose awereness of the player general position
-                        alertness += 5f;
+    //WALK
+    if (state == "walk")
+    {
+        if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
+        {
+            state = "search";
+            wait = 5f;
+        }
+    }
 
-                        if (alertness > 20f)
-                        {
-                            highAlert = false;
-                            nav.speed = 4f;
-                        }
-                    }
+    //SEARCH
+    if (state == "search")
+    {
+        if (wait > 0f)
+        {
+            wait -= Time.deltaTime;
+            //transform.Rotate(0f, 90f * Time.deltaTime, 0f);
+        }
+        else
+        {
+            state = "idle";
+        }
+    }
 
-                    nav.SetDestination(navHit.position);
-                    state = "walk";
-                }
+    //CHASE
+    if (state == "chase")
+    {
+        nav.speed = 6f;
+        nav.destination = player.transform.position;
+        //nav.SetDestination(player.transform.position); 
 
-                //WALK
-                if (state == "walk")
-                {
-                    if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
-                    {
-                        state = "search";
-                        wait = 5f;
-                    }
-                }
+        //Lose sight of player
+        float distance = Vector3.Distance(transform.position, player.transform.position);
 
-                //SEARCH
-                if (state == "search")
-                {
-                    if (wait > 0f)
-                    {
-                        wait -= Time.deltaTime;
-                        //transform.Rotate(0f, 90f * Time.deltaTime, 0f);
-                    }
-                    else
-                    {
-                        state = "idle";
-                    }
-                }
+        if (distance > 30f)
+        {
+            state = "hunt";
+        }
+    }
 
-                //CHASE
-                if (state == "chase")
-                {
-                    nav.speed = 6f;
-                    nav.destination = player.transform.position;
-                    //nav.SetDestination(player.transform.position); 
-
-                    //Lose sight of player
-                    float distance = Vector3.Distance(transform.position, player.transform.position);
-
-                    if (distance > 30f)
-                    {
-                        state = "hunt";
-                    }
-                }
-
-                //HUNT
-                if (state == "hunt")
-                {
-                    if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
-                    {
-                        state = "search";
-                        wait = 2f;
-                        highAlert = true;
-                        alertness = 5f;
-                        checkSight();
-                    }
-                }
-            }*/
+    //HUNT
+    if (state == "hunt")
+    {
+        if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
+        {
+            state = "search";
+            wait = 2f;
+            highAlert = true;
+            alertness = 5f;
+            checkSight();
+        }
+    }
+}*/
             //nav.SetDestination(player.transform.position);
+            #endregion
         }
 
-        public void Idle(States state)
+        //TODO: Make a roaming state that does Idle and Walk.
+        private void Idle()
         {
-            if (state == States.idle)
+            //Pick random place to walk
+            Vector3 randomPos = Random.insideUnitSphere * alertness;
+            NavMesh.SamplePosition(transform.position + randomPos, out NavMeshHit navHit, 1000f, NavMesh.AllAreas);
+
+            //Go near player cuz high alert
+            if (highAlert)
             {
-                //Pick random place to walk
-                Vector3 randomPos = Random.insideUnitSphere * alertness;
-                NavMesh.SamplePosition(transform.position + randomPos, out NavMeshHit navHit, 1000f, NavMesh.AllAreas);
+                NavMesh.SamplePosition(player.transform.position + randomPos, out navHit, 1000f, NavMesh.AllAreas);
 
-                //Go near player cuz high alert
-                if (highAlert)
+                //It will lose awereness of the player general position
+                alertness += 10f;
+
+                if (alertness > 40f)
                 {
-                    NavMesh.SamplePosition(player.transform.position + randomPos, out navHit, 1000f, NavMesh.AllAreas);
-
-                    //It will lose awereness of the player general position
-                    alertness += 10f;
-
-                    if (alertness > 40f)
-                    {
-                        highAlert = false;
-                        nav.speed = 4f;
-                    }
+                    highAlert = false;
+                    nav.speed = 4f;
                 }
-
-                nav.SetDestination(navHit.position);
-                state = States.walk;
             }
-            Debug.Log("Spam");
+
+            nav.SetDestination(navHit.position);
+            state = States.walk;
+            //Debug.Log("Spam");
         }
 
-        public void Walk(States state)
+        private void Walk()
         {
-            if (state == States.walk)
+            if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
             {
-                if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
-                {
-                    state = States.search;
-                    wait = 5f;
-                }
+                state = States.idle;
+                wait = 5f;
             }
         }
 
-        public void Search(States state)
+        public void Search()
         {
             if (state == States.search)
             {
@@ -234,35 +234,29 @@ namespace SilentSpace
             }
         }
 
-        public void Chase(States state)
+        public void Chase()
         {
-            if (state == States.chase)
+            nav.speed = 6f;
+            nav.destination = player.transform.position;
+
+            //Lose sight of player
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+
+            if (distance > 30f)
             {
-                nav.speed = 6f;
-                nav.destination = player.transform.position;
-
-                //Lose sight of player
-                float distance = Vector3.Distance(transform.position, player.transform.position);
-
-                if (distance > 30f)
-                {
-                    state = States.hunt;
-                }
+                state = States.hunt;
             }
         }
 
-        public void Hunt(States state)
+        public void Hunt()
         {
-            if (state == States.hunt)
+            if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
             {
-                if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
-                {
-                    state = States.search;
-                    wait = 2f;
-                    highAlert = true;
-                    alertness = 5f;
-                    checkSight();
-                }
+                state = States.search;
+                wait = 2f;
+                highAlert = true;
+                alertness = 5f;
+                checkSight();
             }
         }
     }
