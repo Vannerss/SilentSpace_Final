@@ -163,10 +163,10 @@ namespace SilentSpace
 
         public void Intimidate()
         {
+            _animator.SetBool("intimidate", true);
             nav.speed = 0f;
             roar.pitch = 1.2f;
             roar.Play();
-            _animator.SetBool("intimidate", true);
             states = States.chase;
         }
         
