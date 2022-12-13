@@ -1359,7 +1359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &69939437975914546
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1456,6 +1456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onMainMenu: 0
   currentMenu: {fileID: 69939437127315222}
+  bg: {fileID: 0}
   gameSettingsOptions: {fileID: 0}
   videoSettingsOptions: {fileID: 0}
   audioSettingsOptions: {fileID: 0}

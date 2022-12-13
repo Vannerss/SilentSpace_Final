@@ -15,6 +15,7 @@ namespace SilentSpace.UI
         public GameObject videoSettingsOptions;
         public GameObject audioSettingsOptions;
         public GameObject difficultyInteractionMessageScreen;
+        public GameObject Notes;
 
         private void OnEnable()
         {

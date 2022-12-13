@@ -95,7 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2020351890201415609
 RectTransform:
   m_ObjectHideFlags: 0
@@ -462,11 +462,6 @@ MonoBehaviour:
   noteItem3: {fileID: 0}
   noteItem4: {fileID: 0}
   noteItem5: {fileID: 0}
-  noteObject1: {fileID: 0}
-  noteObject2: {fileID: 0}
-  noteObject3: {fileID: 0}
-  noteObject4: {fileID: 0}
-  noteObject5: {fileID: 0}
 --- !u!1 &2020351890415724121
 GameObject:
   m_ObjectHideFlags: 0
@@ -2968,11 +2963,6 @@ MonoBehaviour:
   keyItem3: {fileID: 0}
   keyItem4: {fileID: 0}
   keyItem5: {fileID: 0}
-  keyObject1: {fileID: 0}
-  keyObject2: {fileID: 0}
-  keyObject3: {fileID: 0}
-  keyObject4: {fileID: 0}
-  keyObject5: {fileID: 0}
 --- !u!1 &2020351891455995033
 GameObject:
   m_ObjectHideFlags: 0
@@ -5846,7 +5836,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a73be689786e9047a1d03f45dedda0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthLabel: {fileID: 6634519528162444061}
+  healthLabel: {fileID: 0}
   oxygenLabel: {fileID: 0}
   percentageLabel: {fileID: 6634519529253719144}
 --- !u!1 &6634519529653984036
@@ -6262,6 +6252,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6634519528293814187}
     m_Modifications:
+    - target: {fileID: 544407455427182405, guid: 25928ec30f4b6244c99980866e7a92c4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 544407456414704639, guid: 25928ec30f4b6244c99980866e7a92c4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5158073724711741032, guid: 25928ec30f4b6244c99980866e7a92c4, type: 3}
       propertyPath: m_Pivot.x
       value: 0
