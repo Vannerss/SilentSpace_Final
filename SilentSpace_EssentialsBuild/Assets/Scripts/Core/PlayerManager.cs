@@ -1,8 +1,7 @@
 using System;
+using System.Collections.Generic;
 using SilentSpace.DataPersistence;
 using SilentSpace.DataPersistence.Data;
-using SilentSpace.Helpers;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SilentSpace.Core
@@ -24,12 +23,11 @@ namespace SilentSpace.Core
         [Range(0.0f, 1.0f)] public float xSensitivity;
         public GameObject player;
         public Transform spawnPoint;
-
+        private HashSet<string> _inventory;
 
         public event Action OnPlayerDeath;
         public event Action OnPlayerOxygenRanOut;
         public event Action OnPlayerOxygenRefilled;
-        
         
         public Vector3 Position => player != null ? player.transform.position : Vector3.zero;
         public float Oxygen { get => oxygenLevel; set => oxygenLevel = value; }
@@ -97,6 +95,19 @@ namespace SilentSpace.Core
             }
         }
 
+        public void AddToInventory(string itemName)
+        {
+            if (!_inventory.Contains(itemName))
+            {
+                _inventory.Add(itemName);
+            }
+        }
+        
+        public bool InventoryHas(string itemName)
+        {
+            return _inventory.Contains(itemName);
+        }
+        
         public void SuitBroke()
         {
             isSuitDamaged = true;
