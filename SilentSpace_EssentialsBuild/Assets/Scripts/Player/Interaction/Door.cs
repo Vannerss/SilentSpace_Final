@@ -22,8 +22,6 @@ namespace SilentSpace.Player.interaction
 
         private void Start()
         {
-            
-            
             _doorBottom = transform.GetChild(0).gameObject;
             _doorTop = transform.GetChild(1).gameObject;
             _bottomCollider = _doorBottom.GetComponent<BoxCollider>();
@@ -58,7 +56,6 @@ namespace SilentSpace.Player.interaction
                 
                 if (_doorBottom.transform.position == _goalPositionBottom && _doorTop.transform.position == _goalPositionTop)
                 {
-                    
                     _openDoor = false;
                     _doorIsOpen = true;
                 }

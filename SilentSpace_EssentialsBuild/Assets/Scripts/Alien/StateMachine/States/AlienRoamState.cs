@@ -69,6 +69,7 @@ namespace SilentSpace.Alien.StateMachine.States
         private void SwitchToIntimidate()
         {
             SwitchState(Factory.Intimidate());
+            
         }
     }
 }
