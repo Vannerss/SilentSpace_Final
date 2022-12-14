@@ -138,27 +138,9 @@ namespace SilentSpace
             if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Chasing"))
             {
                 nav.isStopped = false;
-                nav.speed = 7.5f;
-                _animator.speed = 1.5f;
-                nav.destination = player.transform.position;
-                _animator.SetBool("attack", false);
-                _animator.SetBool("intimidate", false);
-                _animator.SetBool("roaming", false);
-
-                //Lose sight of player
-                float distance = Vector3.Distance(transform.position, player.transform.position);
-
-                if (distance > 30f)
-                {
-                    states = States.hunt;
-                }
-                else if (distance <= 5f)
-                {
-                    states = States.attack;
-                }
             }
 
-            /*nav.speed = 7.5f;
+            nav.speed = 7.5f;
             _animator.speed = 1.5f;
             nav.destination = player.transform.position;
             _animator.SetBool("attack", false);
@@ -175,7 +157,7 @@ namespace SilentSpace
             else if (distance <= 5f)
             {
                 states = States.attack;
-            }*/
+            }
         }
 
         public void Intimidate()
@@ -183,11 +165,7 @@ namespace SilentSpace
             nav.isStopped = true;
             roar.pitch = 1.2f;
             roar.Play();
-
-            if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
-            {
-                states = States.chase;
-            }
+            states = States.chase;
         }
         
         //Search for player in nearby area of the player until it lose all alertness
@@ -210,89 +188,4 @@ namespace SilentSpace
             states = States.chase;
         }
     }
-    #region hide me
-    /*if (alive)
-    {
-        //IDLE
-        if (state == "idle")
-        {
-            //Pick random place to walk
-            Vector3 randomPos = Random.insideUnitSphere * alertness;
-            NavMeshHit navHit;
-            NavMesh.SamplePosition(transform.position + randomPos, out navHit, 100f, NavMesh.AllAreas);
-
-            //Go near player cuz high alert
-            if (highAlert)
-            {
-                NavMesh.SamplePosition(player.transform.position + randomPos, out navHit, 100f, NavMesh.AllAreas);
-
-                //It will lose awereness of the player general position
-                alertness += 5f;
-
-                if (alertness > 20f)
-                {
-                    highAlert = false;
-                    nav.speed = 4f;
-                }
-            }
-
-            nav.SetDestination(navHit.position);
-            state = "walk";
-        }
-
-        //WALK
-        if (state == "walk")
-        {
-            if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
-            {
-                state = "search";
-                wait = 5f;
-            }
-        }
-
-        //SEARCH
-        if (state == "search")
-        {
-            if (wait > 0f)
-            {
-                wait -= Time.deltaTime;
-                //transform.Rotate(0f, 90f * Time.deltaTime, 0f);
-            }
-            else
-            {
-                state = "idle";
-            }
-        }
-
-        //CHASE
-        if (state == "chase")
-        {
-            nav.speed = 6f;
-            nav.destination = player.transform.position;
-            //nav.SetDestination(player.transform.position); 
-
-            //Lose sight of player
-            float distance = Vector3.Distance(transform.position, player.transform.position);
-
-            if (distance > 30f)
-            {
-                state = "hunt";
-            }
-        }
-
-        //HUNT
-        if (state == "hunt")
-        {
-            if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
-            {
-                state = "search";
-                wait = 2f;
-                highAlert = true;
-                alertness = 5f;
-                checkSight();
-            }
-        }
-    }*/
-    //nav.SetDestination(player.transform.position);
-    #endregion
 }
