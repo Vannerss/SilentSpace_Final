@@ -22,7 +22,7 @@ namespace SilentSpace.Core
         [Range(0.0f, 1.0f)] public float xSensitivity; 
         public GameObject player; 
         public Transform spawnPoint; 
-        public Dictionary<string, bool> inventory;
+        public HashSet<string> inventory;
 
         public event Action OnPlayerDeath; 
         public event Action OnPlayerOxygenRanOut; 
@@ -98,13 +98,13 @@ namespace SilentSpace.Core
         public void AddToInventory(string itemName)
         {
            
-                inventory.Add(itemName,true);
+            
             
         }
         
         public bool InventoryHas(string itemName)
         {
-            return inventory.ContainsKey(itemName);
+            return true;
         }
         
         public void SuitBroke()
