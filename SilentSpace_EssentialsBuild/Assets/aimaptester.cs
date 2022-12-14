@@ -10,7 +10,7 @@ namespace SilentSpace
         private NavMeshAgent _agent;
 
         public Transform destination;
-        
+        //wowS
         void Start()
         {
             _agent = this.GetComponent<NavMeshAgent>();
