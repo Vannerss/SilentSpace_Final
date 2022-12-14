@@ -1,13 +1,14 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SilentSpace.Player.interaction
 {
     public class Elevator : MonoBehaviour, IInteractable
     {
         public string InteractionPrompt { get; }
+        
         public GameObject elevator;
         public Vector3 goalPosition;
+        public float addToPosition;
 
         private Vector3 _startingPosition;
         private bool _goUp;
@@ -18,7 +19,7 @@ namespace SilentSpace.Player.interaction
         {
             var elevatorPos = elevator.transform.position;
             _startingPosition = elevatorPos;
-            goalPosition = new Vector3(elevatorPos.x, elevatorPos.y + 26.8310822f, elevatorPos.z);
+            goalPosition = new Vector3(elevatorPos.x, elevatorPos.y + addToPosition, elevatorPos.z);
         }
 
         public void Interact(Interactor interactor)
@@ -32,8 +33,9 @@ namespace SilentSpace.Player.interaction
         {
             if(_goUp)
             {
-                elevator.transform.position = Vector3.Lerp(elevator.transform.position, goalPosition, 0.2f * Time.deltaTime);
-            
+                //elevator.transform.position = Vector3.Lerp(elevator.transform.position, goalPosition, 0.2f * Time.deltaTime);
+                elevator.transform.position = Vector3.MoveTowards(elevator.transform.position, goalPosition, 2 * Time.deltaTime);
+                
                 if (elevator.transform.position == goalPosition)
                 {
                     _goUp = false;

@@ -9,19 +9,24 @@ namespace SilentSpace.Player.interaction
     public class KeyItems : MonoBehaviour, IInteractable
     {
         private PlayerManager _playerManager;
-        private AudioSource audio;
 
         public string InteractionPrompt { get; }
+        public string itemName;
 
         private void Start()
         {
             _playerManager = PlayerManager.Instance;
-            audio.Play();
+            
         }
 
         public void Interact(Interactor interactor)
         {
-                                                                                
+            if (!_playerManager.InventoryHas(itemName))
+            {
+                _playerManager.AddToInventory(itemName);
+            }
+            
+            gameObject.SetActive(false);
         }
     }
 }

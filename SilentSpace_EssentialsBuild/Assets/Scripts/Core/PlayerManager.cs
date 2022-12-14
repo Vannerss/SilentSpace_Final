@@ -8,28 +8,28 @@ namespace SilentSpace.Core
 {
     public class PlayerManager : MonoBehaviour, IDataPersistence
     {
-        public static PlayerManager Instance;
-
-        private string _currentState;
-        private string _currentSubState;
+        public static PlayerManager Instance; 
+        private string _currentState; 
+        private string _currentSubState; 
         
-        public float health = 100f;
-        public float oxygenLevel = 100f;
-        public int maxOxygenLevel = 100;
-        public bool isSuitDamaged = false;
-        public int totalKeyItems;
-        public int totalNoteItems;
-        [Range(0.0f, 1.0f)] public float ySensitivity;
-        [Range(0.0f, 1.0f)] public float xSensitivity;
-        public GameObject player;
-        public Transform spawnPoint;
+        public float health = 100f; 
+        public float oxygenLevel = 100f; 
+        public int maxOxygenLevel = 100; 
+        public bool isSuitDamaged = false; 
+        public int totalKeyItems; 
+        public int totalNoteItems; 
+        [Range(0.0f, 1.0f)] public float ySensitivity; 
+        [Range(0.0f, 1.0f)] public float xSensitivity; 
+        public GameObject player; 
+        public Transform spawnPoint; 
         private HashSet<string> _inventory;
 
-        public event Action OnPlayerDeath;
-        public event Action OnPlayerOxygenRanOut;
-        public event Action OnPlayerOxygenRefilled;
+        public event Action OnPlayerDeath; 
+        public event Action OnPlayerOxygenRanOut; 
+        public event Action OnPlayerOxygenRefilled; 
         
-        public Vector3 Position => player != null ? player.transform.position : Vector3.zero;
+        
+        public Vector3 Position => player != null ? player.transform.position : Vector3.zero; 
         public float Oxygen { get => oxygenLevel; set => oxygenLevel = value; }
         public string CurrentSubState { get => _currentState; set => _currentState = value; }
         
