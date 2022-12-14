@@ -17,6 +17,7 @@ namespace SilentSpace
         private bool highAlert = false;
         private bool stopAndGo = false;
         private float alertness = 40f;
+        private int aggro;
         private NavMeshAgent nav;
         private AudioSource sound;
         private Animator _animator;
@@ -35,6 +36,7 @@ namespace SilentSpace
 
         void Start()
         {
+            aggro = 1;
             states = States.roaming;
             nav = GetComponent<NavMeshAgent>();
             sound = GetComponent<AudioSource>();
@@ -88,8 +90,16 @@ namespace SilentSpace
                 {
                     if (states != States.chase)
                     {
-                        _animator.SetBool("intimidate", true);
-                        states = States.intimidate;
+                        if (aggro == 1)
+                        {
+                            _animator.SetBool("intimidateOnly", true);
+                            states = States.intimidate;
+                        }
+                        else if (aggro >= 2)
+                        {
+                            _animator.SetBool("intimidate", true);
+                            states = States.intimidate;
+                        }
                     }
                 }
             }
@@ -104,14 +114,21 @@ namespace SilentSpace
         private void Roaming()
         {
             _animator.SetBool("intimidate", false);
+            _animator.SetBool("intimidateOnly", false);
+
+            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Roaming & Hunt"))
+            {
+                nav.isStopped = false;
+            }
 
             if (stopAndGo == false)
             {
                 randomPos = Random.insideUnitSphere * alertness;
                 NavMesh.SamplePosition(transform.position + randomPos, out navHit, 5000f, NavMesh.AllAreas);
 
-                if (highAlert == true)
+                if (highAlert == true && aggro == 3)
                 {
+                    randomPos = Random.insideUnitSphere * alertness;
                     NavMesh.SamplePosition(player.transform.position + randomPos, out navHit, 5000f, NavMesh.AllAreas);
 
                     //It will lose awereness of the player general position
@@ -145,14 +162,27 @@ namespace SilentSpace
             nav.destination = player.transform.position;
             _animator.SetBool("attack", false);
             _animator.SetBool("intimidate", false);
+            _animator.SetBool("intimidateOnly", false);
             _animator.SetBool("roaming", false);
 
             //Lose sight of player
             float distance = Vector3.Distance(transform.position, player.transform.position);
 
-            if (distance > 30f)
+            if (distance > 30f && aggro == 3)
             {
                 states = States.hunt;
+            }
+            else if (distance > 25f && aggro == 1)
+            {
+                states = States.roaming;
+                nav.speed = 5f;
+                _animator.SetBool("roaming", true);
+            }
+            else if (distance > 30f && aggro == 2)
+            {
+                states = States.roaming;
+                nav.speed = 5f;
+                _animator.SetBool("roaming", true);
             }
             else if (distance <= 5f)
             {
@@ -175,8 +205,8 @@ namespace SilentSpace
 
             if (nav.remainingDistance <= nav.stoppingDistance && !nav.pathPending)
             {
-                states = States.roaming;
                 highAlert = true;
+                states = States.roaming;
                 alertness = 5f;
                 checkSight();
             }
