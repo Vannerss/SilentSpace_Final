@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using SilentSpace.Core;
 using UnityEngine;
 
@@ -16,7 +13,6 @@ namespace SilentSpace.Player.interaction
         private void Start()
         {
             _playerManager = PlayerManager.Instance;
-            
         }
 
         public void Interact(Interactor interactor)
