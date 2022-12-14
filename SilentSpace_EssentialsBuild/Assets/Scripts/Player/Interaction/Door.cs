@@ -34,7 +34,7 @@ namespace SilentSpace.Player.interaction
             _goalPositionBottom = new Vector3(bottomDoorPos.x, bottomDoorPos.y - 1.3f, bottomDoorPos.z);
         }
 
-        public void Interact(Interactor interactor)
+        public void Interact()
         {
             if (_doorIsOpen)
             {

@@ -20,7 +20,7 @@ namespace SilentSpace.Player.interaction
             _playerManager = PlayerManager.Instance;
         }
 
-        public void Interact(Interactor interactor)
+        public void Interact()
         {
             var healingAmount = _playerManager.GetHp() + healthBonus;
             _playerManager.SetHp(healingAmount);

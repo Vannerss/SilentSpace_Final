@@ -15,7 +15,7 @@ namespace SilentSpace.Player.interaction
             _playerManager = PlayerManager.Instance;
         }
 
-        public void Interact(Interactor interactor)
+        public void Interact()
         {
             if (!_playerManager.InventoryHas(itemName))
             {

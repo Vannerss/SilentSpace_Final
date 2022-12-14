@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using SilentSpace.Core;
 
 namespace SilentSpace.Player.interaction
 {
@@ -9,24 +10,27 @@ namespace SilentSpace.Player.interaction
         public GameObject elevator;
         public Vector3 goalPosition;
         public float addToPosition;
+        public PlayerManager playerManager;
 
         private Vector3 _startingPosition;
         private bool _goUp;
         private bool _elevatorIsUp; //-76.55862 -26.97554 -36.00361
         //0.1444578
-
+        
         private void Start()
         {
+            playerManager = PlayerManager.Instance;
             var elevatorPos = elevator.transform.position;
             _startingPosition = elevatorPos;
             goalPosition = new Vector3(elevatorPos.x, elevatorPos.y + addToPosition, elevatorPos.z);
         }
 
-        public void Interact(Interactor interactor)
+        public void Interact()
         {
             if(!_elevatorIsUp) _goUp = true;
             //goalPosition = Vector3.zero;
             Debug.Log("hi");
+            playerManager.health = 10f;
         }
 
         private void Update()

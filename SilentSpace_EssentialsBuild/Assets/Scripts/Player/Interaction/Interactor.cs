@@ -30,7 +30,7 @@ namespace SilentSpace.Player.interaction
             if (Physics.Raycast(ray, out var hit, interactionMaxDistance, interactableMask))
             {
                 _interactable = hit.collider.GetComponent<IInteractable>();
-                _interactable.Interact(this);
+                _interactable.Interact();
             }
         }
     }

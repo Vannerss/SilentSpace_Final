@@ -19,7 +19,7 @@ namespace SilentSpace
         }
 
 
-        public void Interact(Interactor interactor)
+        public void Interact()
         {
             _playerManager.SetHp(_playerManager.GetHp() - 20); 
             

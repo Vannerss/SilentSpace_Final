@@ -19,7 +19,7 @@ namespace SilentSpace.Player.interaction
             _playerManager = PlayerManager.Instance;
         }
 
-        public void Interact(Interactor interactor)
+        public void Interact()
         {
             _playerManager.PartialSuitFix();
             gameObject.SetActive(false);
