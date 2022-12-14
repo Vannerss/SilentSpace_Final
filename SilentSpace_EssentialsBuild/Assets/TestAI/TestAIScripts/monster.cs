@@ -12,20 +12,17 @@ namespace SilentSpace
         public GameObject player;
         public AudioClip[] footsounds;
         public Transform eyes;
+        public AudioSource roar;
 
         private bool highAlert = false;
         private bool stopAndGo = false;
         private float alertness = 40f;
         private NavMeshAgent nav;
-        //private AudioController _audioController;
         private AudioSource sound;
-        public AudioSource roar;
         private Animator _animator;
         private States states;
         private Vector3 randomPos;
         private NavMeshHit navHit;
-
-        //private Timer timer;
 
         public enum States
         {
@@ -45,10 +42,6 @@ namespace SilentSpace
 
             nav.speed = 5f;
             _animator.speed = 1f;
-
-            //timer = new Timer();
-            //timer.RemainingSeconds;
-            //timer.Tick();
         }
 
         void Update()
@@ -93,8 +86,9 @@ namespace SilentSpace
             {
                 if (rayHit.collider.gameObject.name == "Body")
                 {
-                    if (states != States.attack)
+                    if (states != States.chase)
                     {
+                        _animator.SetBool("intimidate", true);
                         states = States.intimidate;
                     }
                 }
@@ -141,7 +135,30 @@ namespace SilentSpace
 
         public void Chase()
         {
-            nav.speed = 7.5f;
+            if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Chasing"))
+            {
+                nav.isStopped = false;
+                nav.speed = 7.5f;
+                _animator.speed = 1.5f;
+                nav.destination = player.transform.position;
+                _animator.SetBool("attack", false);
+                _animator.SetBool("intimidate", false);
+                _animator.SetBool("roaming", false);
+
+                //Lose sight of player
+                float distance = Vector3.Distance(transform.position, player.transform.position);
+
+                if (distance > 30f)
+                {
+                    states = States.hunt;
+                }
+                else if (distance <= 5f)
+                {
+                    states = States.attack;
+                }
+            }
+
+            /*nav.speed = 7.5f;
             _animator.speed = 1.5f;
             nav.destination = player.transform.position;
             _animator.SetBool("attack", false);
@@ -155,19 +172,22 @@ namespace SilentSpace
             {
                 states = States.hunt;
             }
-            else if (distance <= 3f)
+            else if (distance <= 5f)
             {
                 states = States.attack;
-            }
+            }*/
         }
 
         public void Intimidate()
         {
-            _animator.SetBool("intimidate", true);
-            nav.speed = 0f;
+            nav.isStopped = true;
             roar.pitch = 1.2f;
             roar.Play();
-            states = States.chase;
+
+            if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+            {
+                states = States.chase;
+            }
         }
         
         //Search for player in nearby area of the player until it lose all alertness
