@@ -172,7 +172,7 @@ namespace SilentSpace
             {
                 states = States.hunt;
             }
-            else if (distance > 25f && aggro == 1)
+            else if (distance > 12.5f && aggro == 1)
             {
                 states = States.roaming;
                 nav.speed = 5f;
