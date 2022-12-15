@@ -13,11 +13,11 @@ namespace SilentSpace
         public AudioClip[] footsounds;
         public Transform eyes;
         public AudioSource roar;
+        public int aggro;
 
         private bool highAlert = false;
         private bool stopAndGo = false;
         private float alertness = 40f;
-        private int aggro;
         private NavMeshAgent nav;
         private AudioSource sound;
         private Animator _animator;
