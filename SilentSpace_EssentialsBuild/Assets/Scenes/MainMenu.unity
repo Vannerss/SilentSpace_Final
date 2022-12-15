@@ -5889,6 +5889,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 69939437975914547, guid: dd31904d3ca26f646acd3f9bab038014, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3735482940777826343, guid: dd31904d3ca26f646acd3f9bab038014, type: 3}
       propertyPath: bg
       value: 
