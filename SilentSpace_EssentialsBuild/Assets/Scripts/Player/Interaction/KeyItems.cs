@@ -72,6 +72,7 @@ namespace SilentSpace.Player.interaction
 
             if (itemName == "MedicalSupplies")
             {
+                
                 Quest_Manager.Medical_aquired = true;
             }
 
