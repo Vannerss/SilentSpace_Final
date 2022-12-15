@@ -43,7 +43,7 @@ namespace SilentSpace.Player.interaction
                 {
                     Quest_Manager.generator_Turned_On = true;
                     gameObject.SetActive(false);
-                    objective.CurrentOBJ += 1;
+                    objective.CurrentOBJ = 2;
                 }
             }
 
@@ -53,7 +53,7 @@ namespace SilentSpace.Player.interaction
                 {
                     Quest_Manager.generator_Stabilized = true;
                     gameObject.SetActive(false);
-                    objective.CurrentOBJ += 1;
+                    objective.CurrentOBJ = 4;
                 }
 
             }
@@ -62,7 +62,7 @@ namespace SilentSpace.Player.interaction
             {
                 Quest_Manager.Security_Reset = true;
                 gameObject.SetActive(false);
-                objective.CurrentOBJ += 1;
+                objective.CurrentOBJ = 3;
             }
 
 
@@ -72,7 +72,7 @@ namespace SilentSpace.Player.interaction
                 {
                     Quest_Manager.ID_Aquired = true;
                     gameObject.SetActive(false);
-                    objective.CurrentOBJ += 1;
+                    objective.CurrentOBJ = 5;
                 }
             }
 
@@ -128,7 +128,7 @@ namespace SilentSpace.Player.interaction
 
                     Quest_Manager.Able_To_Exit = true;
                     gameObject.SetActive(false);
-                    objective.CurrentOBJ += 1;
+                    objective.CurrentOBJ = 6;
                 }
 
             }

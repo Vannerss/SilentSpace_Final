@@ -17,7 +17,7 @@ namespace SilentSpace
 
         private bool highAlert = false;
         private bool stopAndGo = false;
-        private float alertness = 40f;
+        private float alertness = 80f;
         private NavMeshAgent nav;
         private AudioSource sound;
         private Animator _animator;
@@ -132,9 +132,9 @@ namespace SilentSpace
                     NavMesh.SamplePosition(player.transform.position + randomPos, out navHit, 5000f, NavMesh.AllAreas);
 
                     //It will lose awereness of the player general position
-                    alertness += 10f;
+                    alertness += 20f;
 
-                    if (alertness > 40f)
+                    if (alertness > 80f)
                     {
                         highAlert = false;
                         nav.speed = 5f;

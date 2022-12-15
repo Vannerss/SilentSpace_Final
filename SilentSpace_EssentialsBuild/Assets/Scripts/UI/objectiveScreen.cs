@@ -30,7 +30,6 @@ namespace SilentSpace
                 
                 case 1:
                     objectiveText.text = "the generator needs auxiliary power, there should be a power cell somwhere";
-                   
                     break;
 
                 case 2:

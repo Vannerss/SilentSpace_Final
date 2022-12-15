@@ -23,6 +23,7 @@ namespace SilentSpace.Player.interaction
         public Quest_Manager questManager;
         public UIManager objective;
         public String DoorName;
+
         private void Start()
         {
             _playerManager = PlayerManager.Instance;
@@ -48,7 +49,7 @@ namespace SilentSpace.Player.interaction
                 if(questManager.crowbarPicked_Up)
                 {
                     _openDoor = true;
-                    objective.CurrentOBJ += 1;
+                    objective.CurrentOBJ = 1;
                 }
             }
 
