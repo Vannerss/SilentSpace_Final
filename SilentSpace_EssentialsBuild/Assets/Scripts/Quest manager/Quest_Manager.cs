@@ -17,5 +17,6 @@ namespace SilentSpace
         public bool Systems1_aquired = false;
         public bool Systems2_aquired = false;
         public bool Medical_aquired = false;
+        public bool Able_To_Exit = false;
     }
 }

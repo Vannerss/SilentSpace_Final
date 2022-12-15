@@ -76,7 +76,19 @@ namespace SilentSpace.Player.interaction
                 Quest_Manager.Medical_aquired = true;
             }
 
+            if (itemName == "FinalConsole")
+            {
 
+                if (Quest_Manager.Food1_aquired || Quest_Manager.Food2_aquired || Quest_Manager.Systems1_aquired || Quest_Manager.Systems2_aquired
+                    || Quest_Manager.Medical_aquired)
+
+                {
+
+                    Quest_Manager.Able_To_Exit = true;
+
+                }
+
+            }
 
             gameObject.SetActive(false);
         }
