@@ -18,13 +18,13 @@ namespace SilentSpace.UI
         
         public GameObject journalUI;
         public GameObject objectivesUI;
-        public GameObject notesUI;
+        public GameObject noteSelectionUI;
         public GameObject gamePlayUI;
         public GameObject settingsUI;
         public GameObject mapUI;
         public GameObject deathUI;
         public GameObject noteUI;
-        public GameObject listaUI;
+        //public GameObject listaUI;
         
 
         private void Start()
@@ -35,8 +35,6 @@ namespace SilentSpace.UI
             _inputManager.OnPause += SettingsMenu;
             _inputManager.OnJournal += JournalMenu;
             _inputManager.OnMap += MapMenu;
-            
-            
 
             _onStart = false;
             
@@ -44,9 +42,10 @@ namespace SilentSpace.UI
             _playerManager.OnPlayerDeath += OpenDeathMenu;
             
             journalUI.SetActive(false);
-            notesUI.SetActive(false);
+            noteSelectionUI.SetActive(false);
+            objectivesUI.SetActive(false);
             noteUI.SetActive(false);
-            listaUI.SetActive(false);
+            //listaUI.SetActive(false);
 
 
         }
@@ -70,9 +69,7 @@ namespace SilentSpace.UI
         public void JournalMenu()
         {
             if (settingsUI.activeSelf) return;
-            
-            journalUI.SetActive(false);
-            
+
             if (!journalUI.activeSelf)
             {
                 _inputManager.DisableLookInputs();
@@ -81,30 +78,28 @@ namespace SilentSpace.UI
                 Cursor.visible = true;
                 journalUI.SetActive(true);
                 objectivesUI.SetActive(true);
-                
                 return;
             }
+            
             _inputManager.EnableLookInputs();
             _inputManager.EnableMovementInputs();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             journalUI.SetActive(false);
             objectivesUI.SetActive(false);
-            notesUI.SetActive(false);
+            noteSelectionUI.SetActive(false);
             noteUI.SetActive(false);
-            listaUI.SetActive(false);
-            
-            
+            //listaUI.SetActive(false);
         }
         
         public void OpenNotesUI()
         {
             
-            notesUI.SetActive(true);
+            noteSelectionUI.SetActive(true);
             journalUI.SetActive(true);
             objectivesUI.SetActive(true);
             noteUI.SetActive(false);
-            listaUI.SetActive(false);
+            //listaUI.SetActive(false);
             
         }
 
@@ -113,16 +108,16 @@ namespace SilentSpace.UI
             noteUI.SetActive(true);
             journalUI.SetActive(true);
             objectivesUI.SetActive(true);
-            notesUI.SetActive(false);
-            listaUI.SetActive(false);
+            noteSelectionUI.SetActive(false);
+            //listaUI.SetActive(false);
         }
 
         
         public void OpenObjectivesUI()
         {
             
-            listaUI.SetActive(true);
-            notesUI.SetActive(false);
+            //listaUI.SetActive(true);
+            noteSelectionUI.SetActive(false);
             journalUI.SetActive(true);
             objectivesUI.SetActive(true);
             noteUI.SetActive(false);
