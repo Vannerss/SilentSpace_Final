@@ -1,9 +1,8 @@
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using SilentSpace.Audio;
 using SilentSpace.Core;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using AudioType = SilentSpace.Audio.AudioType;
 
 namespace SilentSpace.UI
@@ -22,6 +21,7 @@ namespace SilentSpace.UI
         public GameObject gamePlayUI;
         public GameObject settingsUI;
         public GameObject mapUI;
+        public GameObject winUI;
         public GameObject deathUI;
         public GameObject noteUI;
         //public GameObject listaUI;
@@ -150,6 +150,22 @@ namespace SilentSpace.UI
             deathUI.SetActive(true);
         }
 
+        private void OpenWinMenu()
+        {
+            _inputManager.DisableMovementInputs();
+            _inputManager.DisableLookInputs();
+            winUI.SetActive(true);
+        }
+
+        public void MainMenu()
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+
+        public void Quit()
+        {
+            Application.Quit();
+        }
 
         #region UI Audio references
 
