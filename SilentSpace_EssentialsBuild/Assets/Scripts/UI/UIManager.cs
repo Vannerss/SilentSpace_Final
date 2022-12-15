@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using SilentSpace.Audio;
 using SilentSpace.Core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using AudioType = SilentSpace.Audio.AudioType;
 
 namespace SilentSpace.UI
@@ -21,6 +23,9 @@ namespace SilentSpace.UI
         public GameObject settingsUI;
         public GameObject mapUI;
         public GameObject deathUI;
+        public GameObject noteUI;
+        public GameObject listaUI;
+        
 
         private void Start()
         {
@@ -30,11 +35,20 @@ namespace SilentSpace.UI
             _inputManager.OnPause += SettingsMenu;
             _inputManager.OnJournal += JournalMenu;
             _inputManager.OnMap += MapMenu;
+            
+            
 
             _onStart = false;
             
             _playerManager = PlayerManager.Instance;
             _playerManager.OnPlayerDeath += OpenDeathMenu;
+            
+            journalUI.SetActive(false);
+            notesUI.SetActive(false);
+            noteUI.SetActive(false);
+            listaUI.SetActive(false);
+
+
         }
         
         public void SettingsMenu()
@@ -53,9 +67,11 @@ namespace SilentSpace.UI
             }
         }
 
-        private void JournalMenu()
+        public void JournalMenu()
         {
             if (settingsUI.activeSelf) return;
+            
+            journalUI.SetActive(false);
             
             if (!journalUI.activeSelf)
             {
@@ -65,6 +81,7 @@ namespace SilentSpace.UI
                 Cursor.visible = true;
                 journalUI.SetActive(true);
                 objectivesUI.SetActive(true);
+                
                 return;
             }
             _inputManager.EnableLookInputs();
@@ -74,8 +91,44 @@ namespace SilentSpace.UI
             journalUI.SetActive(false);
             objectivesUI.SetActive(false);
             notesUI.SetActive(false);
+            noteUI.SetActive(false);
+            listaUI.SetActive(false);
+            
+            
+        }
+        
+        public void OpenNotesUI()
+        {
+            
+            notesUI.SetActive(true);
+            journalUI.SetActive(true);
+            objectivesUI.SetActive(true);
+            noteUI.SetActive(false);
+            listaUI.SetActive(false);
+            
         }
 
+        public void OpenNoteUI()
+        {
+            noteUI.SetActive(true);
+            journalUI.SetActive(true);
+            objectivesUI.SetActive(true);
+            notesUI.SetActive(false);
+            listaUI.SetActive(false);
+        }
+
+        
+        public void OpenObjectivesUI()
+        {
+            
+            listaUI.SetActive(true);
+            notesUI.SetActive(false);
+            journalUI.SetActive(true);
+            objectivesUI.SetActive(true);
+            noteUI.SetActive(false);
+        }
+        
+        
         public void MapMenu()
         {
             if (settingsUI.activeSelf) return;

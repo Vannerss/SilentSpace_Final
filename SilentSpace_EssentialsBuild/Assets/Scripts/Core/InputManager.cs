@@ -21,7 +21,7 @@ namespace SilentSpace.Core
         private InputAction _openPause;
         private InputAction _openJournal;
         private InputAction _openMap;
-        
+        private InputAction _openNote;
 
         //Declaration Syntax On Other Scripts: _inputManager.EventName += ReceiverMethodName;
         //Check PlayerStateMachine.cs for usage example.
@@ -87,6 +87,7 @@ namespace SilentSpace.Core
         /// </summary>
         public event Action OnMap;
 
+       
         #endregion
 
         private void Awake()
@@ -150,6 +151,8 @@ namespace SilentSpace.Core
             _openMap = _playerInputActions.PlayerControls.OpenMap;
             _openMap.started += OnMapPressed;
             _openMap.Enable();
+            
+          
         }
         
         private void OnDisable()
