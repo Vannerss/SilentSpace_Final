@@ -64,7 +64,14 @@ namespace SilentSpace.Player.interaction
                     _openDoor = true;
                 }
             }
-            
+
+            if (DoorName == "DoorToMiddleFloor")
+            {
+                if (questManager.generator_Turned_On)
+                {
+                    _openDoor = true;
+                }
+            }
         }
 
         private void Update()
