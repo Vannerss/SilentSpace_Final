@@ -1,5 +1,6 @@
 using SilentSpace.Core;
 using UnityEngine;
+using SilentSpace.UI;
 
 namespace SilentSpace.Player.interaction
 {
@@ -11,6 +12,7 @@ namespace SilentSpace.Player.interaction
         public string itemName;
 
         public Quest_Manager Quest_Manager;
+        public UIManager objective;
 
         private void Start()
         {
@@ -41,6 +43,7 @@ namespace SilentSpace.Player.interaction
                 {
                     Quest_Manager.generator_Turned_On = true;
                     gameObject.SetActive(false);
+                    objective.CurrentOBJ += 1;
                 }
             }
 
@@ -50,6 +53,7 @@ namespace SilentSpace.Player.interaction
                 {
                     Quest_Manager.generator_Stabilized = true;
                     gameObject.SetActive(false);
+                    objective.CurrentOBJ += 1;
                 }
 
             }
@@ -58,6 +62,7 @@ namespace SilentSpace.Player.interaction
             {
                 Quest_Manager.Security_Reset = true;
                 gameObject.SetActive(false);
+                objective.CurrentOBJ += 1;
             }
 
 
@@ -67,6 +72,7 @@ namespace SilentSpace.Player.interaction
                 {
                     Quest_Manager.ID_Aquired = true;
                     gameObject.SetActive(false);
+                    objective.CurrentOBJ += 1;
                 }
             }
 
@@ -122,6 +128,7 @@ namespace SilentSpace.Player.interaction
 
                     Quest_Manager.Able_To_Exit = true;
                     gameObject.SetActive(false);
+                    objective.CurrentOBJ += 1;
                 }
 
             }

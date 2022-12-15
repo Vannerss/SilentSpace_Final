@@ -1,5 +1,6 @@
 ﻿using System;
 using SilentSpace.Core;
+using SilentSpace.UI;
 using UnityEngine;
 
 namespace SilentSpace.Player.interaction
@@ -20,6 +21,7 @@ namespace SilentSpace.Player.interaction
         private bool _doorIsOpen = false;
 
         public Quest_Manager questManager;
+        public UIManager objective;
         public String DoorName;
         private void Start()
         {
@@ -46,6 +48,7 @@ namespace SilentSpace.Player.interaction
                 if(questManager.crowbarPicked_Up)
                 {
                     _openDoor = true;
+                    objective.CurrentOBJ += 1;
                 }
             }
 

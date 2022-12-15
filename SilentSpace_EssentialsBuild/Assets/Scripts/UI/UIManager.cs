@@ -24,6 +24,8 @@ namespace SilentSpace.UI
         public GameObject winUI;
         public GameObject deathUI;
         public GameObject noteUI;
+
+        public int CurrentOBJ = 0;
         //public GameObject listaUI;
         
 
