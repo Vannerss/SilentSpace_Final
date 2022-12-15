@@ -72,6 +72,14 @@ namespace SilentSpace.Player.interaction
                     _openDoor = true;
                 }
             }
+
+            if (DoorName == "FinalDoor")
+            {
+                if (questManager.Able_To_Exit)
+                {
+                    _openDoor = true;
+                }
+            }
         }
 
         private void Update()
