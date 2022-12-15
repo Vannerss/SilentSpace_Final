@@ -23,58 +23,94 @@ namespace SilentSpace.Player.interaction
             if (itemName == "Crowbar")
             {
                 Quest_Manager.crowbarPicked_Up = true;
+                gameObject.SetActive(false);
             }
 
-            if (itemName == "EnergyCell")
-            {
-                Quest_Manager.aquiredEnergyCell = true;
+            if (Quest_Manager.crowbarPicked_Up)
+            { 
+                if (itemName == "EnergyCell")
+                {
+                    Quest_Manager.aquiredEnergyCell = true;
+                    gameObject.SetActive(false);
+                }
             }
 
-            if (itemName == "ReactorConsole")
+            if (Quest_Manager.aquiredEnergyCell)
             {
-                Quest_Manager.generator_Turned_On = true;
+                if (itemName == "ReactorConsole")
+                {
+                    Quest_Manager.generator_Turned_On = true;
+                    gameObject.SetActive(false);
+                }
             }
 
-            if (itemName == "ReactorSurveillanceConsole")
+            if (Quest_Manager.Security_Reset)
             {
-                Quest_Manager.generator_Stabilized = true;
+                if (itemName == "ReactorSurveillanceConsole")
+                {
+                    Quest_Manager.generator_Stabilized = true;
+                    gameObject.SetActive(false);
+                }
+
             }
 
             if (itemName == "CommsRoomConsole")
             {
                 Quest_Manager.Security_Reset = true;
+                gameObject.SetActive(false);
             }
 
-            if (itemName == "ID_Card")
+
+            if (Quest_Manager.generator_Stabilized)
             {
-                Quest_Manager.ID_Aquired = true;
+                if (itemName == "ID_Card")
+                {
+                    Quest_Manager.ID_Aquired = true;
+                    gameObject.SetActive(false);
+                }
             }
+
 
             if (itemName == "ShipSupplies 1")
             {
                 Quest_Manager.Systems1_aquired = true;
+                gameObject.SetActive(false);
             }
+
+
 
             if (itemName == "ShipSupplies 2")
             {
                 Quest_Manager.Systems2_aquired = true;
+                gameObject.SetActive(false);
             }
+
+
 
             if (itemName == "Food 1")
             {
                 Quest_Manager.Food1_aquired = true;
+                gameObject.SetActive(false);
             }
+
+
 
             if (itemName == "Food 2")
             {
                 Quest_Manager.Food2_aquired = true;
+                gameObject.SetActive(false);
             }
+
+
 
             if (itemName == "MedicalSupplies")
             {
                 
                 Quest_Manager.Medical_aquired = true;
+                gameObject.SetActive(false);
             }
+
+
 
             if (itemName == "FinalConsole")
             {
@@ -85,12 +121,12 @@ namespace SilentSpace.Player.interaction
                 {
 
                     Quest_Manager.Able_To_Exit = true;
-
+                    gameObject.SetActive(false);
                 }
 
             }
 
-            gameObject.SetActive(false);
+           
         }
 
 
