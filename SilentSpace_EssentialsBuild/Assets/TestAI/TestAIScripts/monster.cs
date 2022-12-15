@@ -36,7 +36,7 @@ namespace SilentSpace
 
         void Start()
         {
-            aggro = 1;
+ 
             states = States.roaming;
             nav = GetComponent<NavMeshAgent>();
             sound = GetComponent<AudioSource>();
