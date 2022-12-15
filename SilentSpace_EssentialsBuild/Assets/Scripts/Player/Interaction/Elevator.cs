@@ -30,7 +30,7 @@ namespace SilentSpace.Player.interaction
             if(!_elevatorIsUp) _goUp = true;
             //goalPosition = Vector3.zero;
             Debug.Log("hi");
-            playerManager.health = 10f;
+            
         }
 
         private void Update()
