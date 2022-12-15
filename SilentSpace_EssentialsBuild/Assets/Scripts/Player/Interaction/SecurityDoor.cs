@@ -19,6 +19,8 @@ namespace SilentSpace.Player.interaction
         private bool _openDoor = false;
         private bool _doorIsOpen = false;
 
+        public Quest_Manager questManager;
+        public String DoorName;
         private void Start()
         {
             _playerManager = PlayerManager.Instance;
@@ -39,14 +41,30 @@ namespace SilentSpace.Player.interaction
         {
             if(_doorIsOpen) return;
             
-            if (!_playerManager.InventoryHas(itemNeeded))
+            if (DoorName == "ReactorDoor")
             {
-                //TODO: PLAY YOU NEED TO GO GET REQUIRED ITEM TO OPEN THIS DOOR.
+                if(questManager.crowbarPicked_Up)
+                {
+                    _openDoor = true;
+                }
             }
-            else
+
+            if (DoorName == "FHR")
             {
-                _openDoor = true;
+                if (questManager.generator_Turned_On)
+                {
+                    _openDoor = true;
+                }
             }
+
+            if (DoorName == "TopFloorElevator")
+            {
+                if (questManager.ID_Aquired)
+                {
+                    _openDoor = true;
+                }
+            }
+            
         }
 
         private void Update()

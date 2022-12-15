@@ -7,6 +7,7 @@ namespace SilentSpace
     public class Quest_Manager : MonoBehaviour
     {
         public bool crowbarPicked_Up = false;
+        public bool aquiredEnergyCell = false;
         public bool generator_Turned_On = false;
         public bool Security_Reset = false;
         public bool generator_Stabilized = false;
