@@ -143,17 +143,21 @@ namespace SilentSpace.UI
             mapUI.SetActive(false);
         }
 
-        private void OpenDeathMenu()
+        public void OpenDeathMenu()
         {
             _inputManager.DisableMovementInputs();
             _inputManager.DisableLookInputs();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             deathUI.SetActive(true);
         }
 
-        private void OpenWinMenu()
+        public void OpenWinMenu()
         {
             _inputManager.DisableMovementInputs();
             _inputManager.DisableLookInputs();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             winUI.SetActive(true);
         }
 
