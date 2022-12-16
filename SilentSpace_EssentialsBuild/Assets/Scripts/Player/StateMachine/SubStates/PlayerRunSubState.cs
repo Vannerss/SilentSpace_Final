@@ -17,11 +17,15 @@ namespace SilentSpace.Player.StateMachine.SubStates
             HandleRun();
             Ctx.Audio.PlayAudio(AudioType.SFX_Player_Run);
         }
-        public override void FixedUpdateState() { }
+        public override void FixedUpdateState() 
+        {
+            
+        }
         public override void UpdateState()
         {
             CheckSwitchStates();
-            Ctx.playerManager.SetOxygen(Ctx.playerManager.GetOxygen() - 0.5f);
+            Ctx.playerManager.SetOxygen(Ctx.playerManager.GetOxygen() - Ctx.consumptionRate);
+
         }
         public override void ExitState()
         {

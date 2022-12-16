@@ -14,6 +14,8 @@ namespace SilentSpace
         public Transform eyes;
         public AudioSource roar;
         public int aggro;
+        public float walkSpeed = 5f;
+        public float runSpeed = 7.5f;
 
         private bool highAlert = false;
         private bool stopAndGo = false;
@@ -25,6 +27,7 @@ namespace SilentSpace
         private Vector3 randomPos;
         private NavMeshHit navHit;
 
+        
         public enum States
         {
             roaming,
@@ -41,7 +44,7 @@ namespace SilentSpace
             sound = GetComponent<AudioSource>();
             _animator = GetComponent<Animator>();
 
-            nav.speed = 5f;
+            nav.speed = walkSpeed;
             _animator.speed = 1f;
         }
 
@@ -136,7 +139,7 @@ namespace SilentSpace
                     if (alertness > 80f)
                     {
                         highAlert = false;
-                        nav.speed = 5f;
+                        nav.speed = walkSpeed;
                         _animator.speed = 1f;
                     }
                 }
@@ -156,7 +159,7 @@ namespace SilentSpace
                 nav.isStopped = false;
             }
 
-            nav.speed = 7.5f;
+            nav.speed = runSpeed;
             _animator.speed = 1.5f;
             nav.destination = player.transform.position;
             _animator.SetBool("attack", false);
@@ -174,13 +177,13 @@ namespace SilentSpace
             else if (distance > 12.5f && aggro == 1)
             {
                 states = States.roaming;
-                nav.speed = 5f;
+                nav.speed = walkSpeed;
                 _animator.SetBool("roaming", true);
             }
             else if (distance > 30f && aggro == 2)
             {
                 states = States.roaming;
-                nav.speed = 5f;
+                nav.speed = walkSpeed;
                 _animator.SetBool("roaming", true);
             }
             else if (distance <= 5f)

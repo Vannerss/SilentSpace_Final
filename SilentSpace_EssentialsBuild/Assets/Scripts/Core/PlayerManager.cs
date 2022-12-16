@@ -48,7 +48,7 @@ namespace SilentSpace.Core
 
         private void FixedUpdate()
         {
-            SetOxygen(oxygenLevel + 0.1f);
+            SetOxygen(oxygenLevel + 0.2f);
         }
 
 

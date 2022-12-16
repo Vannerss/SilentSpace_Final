@@ -22,6 +22,7 @@ namespace SilentSpace.Player.interaction
 
         public Quest_Manager questManager;
         public UIManager objective;
+        public objectivePrompt Prompt;
         public String DoorName;
 
         private void Start()
@@ -50,6 +51,8 @@ namespace SilentSpace.Player.interaction
                 {
                     _openDoor = true;
                     objective.CurrentOBJ = 1;
+                    Prompt.currentPosition = 2;
+                    
                 }
             }
 

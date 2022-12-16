@@ -27,7 +27,7 @@ namespace SilentSpace.Player.StateMachine
         public RaycastHit SlopeHit;
         public bool isRunning;
         public bool isCrouching;
-        
+        public float consumptionRate;
         
         [Header("Movement")] 
         [Tooltip("Player speed while walking.")]
